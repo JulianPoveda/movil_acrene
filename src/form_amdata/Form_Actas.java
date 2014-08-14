@@ -77,7 +77,7 @@ public class Form_Actas extends Activity implements OnClickListener{
 	ArrayList<String> StringRtaPQR 		= new ArrayList<String>();
 	ArrayAdapter<String> AdaptadorRtaPQR;
 	
-	
+	//COmentaro de prueba
 	//Instancias a objetos graficos
 	TextView 	_lblOrden, _lblActa, _lblCuenta;
 	EditText	_txtLectura, _txtNombreUsuario, _txtDocUsuario, _txtTelUsuario, _txtLongAcometida, _txtOtros, _txtFechaPago, _txtMontoPago, _txtEntidadPago, _txtObservacion;
