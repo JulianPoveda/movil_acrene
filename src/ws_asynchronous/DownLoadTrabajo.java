@@ -22,21 +22,31 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{ //doInBakGround, Progress, onPostExecute
+public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{ 
 	
-	/**Instancias a clases**/
+	/**
+	 * Instancias a clases
+	 * **/
 	private Archivos 	ArchConnectServer;
 	private SQLite 		DownloadSQL;
 	
-	/**Variables Locales**/
+	/**
+	 * Variables Locales
+	**/
 	private Context 			ConnectServerContext;
 	private String 				DirectorioConexionServer;
 	private ArrayList<String> 	InformacionDescarga = new ArrayList<String>();	
 	private String LineasSQL[];
+	
+	/**
+	 * Variables para el manejo de la base de datos
+	 */
+	private ContentValues 				_tempRegistro	= new ContentValues();	
 	
 	/**Variables para el consumo del web service a traves de nusoap**/
 	private String 	_ip_servidor	= "";
@@ -44,8 +54,8 @@ public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{ //doIn
 	private String  _modulo 		= "";
 	private String 	_web_service 	= "";
 	
-	private String URL;				//= "http://190.93.133.87:8080/ControlEnergia/WS/AndroidWS.php?wsdl";
-	private String NAMESPACE;		//= "http://190.93.133.87:8080/ControlEnergia/WS";
+	private String URL;				
+	private String NAMESPACE;		
 	
 	//Variables con la informacion del web service
 	private static final String METHOD_NAME	= "DownLoadTrabajo";
@@ -63,7 +73,7 @@ public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{ //doIn
 	}
 
 
-	//Operaciones antes de realizar la conexion con el servidor
+	/**Operaciones antes de realizar la conexion con el servidor*/
 	protected void onPreExecute(){
 		/***Codigo para el cargue desde la base de datos de la ip y puerto de conexion para el web service***/
 		this._ip_servidor 	= this.DownloadSQL.StrSelectShieldWhere("db_parametros","valor", "item='servidor'");
@@ -92,8 +102,8 @@ public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{ //doIn
 		int _retorno = 0;
 		try{
 			SoapObject so=new SoapObject(NAMESPACE, METHOD_NAME);
-			so.addProperty("Contrato", params[0]);	
-			so.addProperty("PDA", params[1]);	
+			so.addProperty("PDA", params[0]);	
+			//so.addProperty("consulta", "SELECT");	
 			SoapSerializationEnvelope sse=new SoapSerializationEnvelope(SoapEnvelope.VER11);
 			sse.dotNet=true;
 			sse.setOutputSoapObject(so);
@@ -110,11 +120,20 @@ public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{ //doIn
 				byte[] resultado = Base64.decode(response.toString());
 				try {
 					ArchConnectServer.ByteArrayToFile(resultado, "Trabajo.txt");
-					this.InformacionDescarga = ArchConnectServer.FileToArrayString("Trabajo.txt",false);
-					
+					this.InformacionDescarga = ArchConnectServer.FileToArrayString("Trabajo.txt",false);					
 					for(int i=0;i<this.InformacionDescarga.size();i++){
 						LineasSQL = this.InformacionDescarga.get(i).toString().split("\\|");
-						this.DownloadSQL.EjecutarSQL(this.LineasSQL[1]);
+						this._tempRegistro.clear();
+						this._tempRegistro.put("id_serial", 		LineasSQL[0]);
+						this._tempRegistro.put("id_tipo_archivo", 	LineasSQL[1]);
+						this._tempRegistro.put("id_proceso", 		LineasSQL[2]);
+						this._tempRegistro.put("ciclo", 			LineasSQL[3]);
+						this._tempRegistro.put("cuenta", 			LineasSQL[4]);
+						this._tempRegistro.put("usuario", 			LineasSQL[5]);
+						this._tempRegistro.put("direccion", 		LineasSQL[6]);
+						this._tempRegistro.put("serie", 			LineasSQL[7]);
+						this._tempRegistro.put("municipio", 		LineasSQL[8]);
+						this.DownloadSQL.InsertRegistro("amd_ordenes_trabajo", this._tempRegistro);
 						publishProgress((int)((i+1)*100/this.InformacionDescarga.size()));
 					}
 					//ArchConnectServer.DeleteFile("Trabajo.txt");
@@ -123,6 +142,7 @@ public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{ //doIn
 					e.printStackTrace();
 					_retorno = -3;
 				}
+				_retorno = 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,7 +156,7 @@ public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{ //doIn
 	@Override
 	protected void onPostExecute(Integer rta) {
 		if(rta==1){
-			Toast.makeText(this.ConnectServerContext,"Carga de trabajo finalizada.", Toast.LENGTH_LONG).show();
+			Toast.makeText(this.ConnectServerContext,"Carga de trabajo finalizada."+response.toString(), Toast.LENGTH_LONG).show();
 		}else if(rta==-1){
 			Toast.makeText(this.ConnectServerContext,"Intento fallido, el servidor no ha respondido.", Toast.LENGTH_SHORT).show();
 		}else if(rta==-2){

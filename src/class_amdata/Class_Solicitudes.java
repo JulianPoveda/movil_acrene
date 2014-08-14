@@ -28,15 +28,15 @@ public class Class_Solicitudes {
 	}
 	
 	/***************Funcion para validar si se permite el ingreso de informacion a la orden recibida por parametro****************/
-	public boolean IniciarOrden(String _orden){
+	public boolean IniciarOrden(String _id_serial, String _id_tipo_archivo){
 		boolean _retorno = false;
 		if(this.SolicitudesSQL.ExistRegistros("amd_ordenes_trabajo", "estado='E'")){
-			if(this.SolicitudesSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "id_orden", "estado='E'").equals(_orden)){
+			if(this.SolicitudesSQL.ExistRegistros("amd_ordenes_trabajo", "id_serial='"+_id_serial+"' AND id_tipo_archivo='"+_id_tipo_archivo+"' AND estado='E'")){
 				_retorno = true;
 			}else{
 				_retorno = false;
 			}
-		}else if(this.SolicitudesSQL.ExistRegistros("amd_ordenes_trabajo", "id_orden='"+_orden+"' AND estado='P'")){
+		}else if(this.SolicitudesSQL.ExistRegistros("amd_ordenes_trabajo", "id_serial='"+_id_serial+"' AND id_tipo_archivo='"+_id_tipo_archivo+"' AND estado='P'")){
 			_retorno = true;
 		}else{
 			_retorno = false;
@@ -77,9 +77,9 @@ public class Class_Solicitudes {
 	public ArrayList<String> getNodosSolicitudes(){
 		ArrayList<String> _listaNodos = new ArrayList<String>();
 		_listaNodos.add("Todos");
-		this._tempTabla = this.SolicitudesSQL.SelectData("amd_ordenes_trabajo","id_nodo","estado in ('P','E','T','TA')");
+		this._tempTabla = this.SolicitudesSQL.SelectData("amd_ordenes_trabajo","municipio","estado in ('P','E','T','TA')");
 		for(int i=0;i<this._tempTabla.size();i++){
-			_listaNodos.add(this._tempTabla.get(i).getAsString("id_nodo"));
+			_listaNodos.add(this._tempTabla.get(i).getAsString("municipio"));
 		}	
 		return _listaNodos;
 	}

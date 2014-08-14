@@ -74,9 +74,10 @@ public class AdaptadorListaTrabajo extends BaseAdapter{
 		
 		Solicitud.setText(Sol.getSolicitud());				
 		Nodo.setText(Sol.getDireccion());
+		Tipo.setText(Sol.getCuenta());
 		
 		/******************************Generacion del tipo de revision segun la solicitud y la cuenta****************************/
-		if((Double.parseDouble(Sol.getSolicitud())<0)&&(Double.parseDouble(Sol.getCuenta())<0)){
+		/*if((Double.parseDouble(Sol.getSolicitud())<0)&&(Double.parseDouble(Sol.getCuenta())<0)){
 			Tipo.setText("Servicio Nuevo");
 		}else if((Double.parseDouble(Sol.getSolicitud())<0)&&(Double.parseDouble(Sol.getCuenta())>0)){
 			Tipo.setText("Autogestion");
@@ -84,7 +85,7 @@ public class AdaptadorListaTrabajo extends BaseAdapter{
 			Tipo.setText("Solicitudes");
 		}else{
 			Tipo.setText("Revision");
-		}
+		}*/
 		return v;
 	}
 }

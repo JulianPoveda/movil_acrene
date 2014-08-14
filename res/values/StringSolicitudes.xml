@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="LblRuta">Ruta</string>
-    <string name="LblSolicitudes">Solicitudes</string>
-    <string name="LblSerie">Serie</string>
-    <string name="LblDireccion">Direccion</string>
-    <string name="LblPropietario">Propietario</string>
-    <string name="LblCuenta">Cuenta</string>
-    <string name="LblOrden">Orden</string>
-    <string name="LblEstado">Estado</string>
-    <string name="LblTipo">Tipo</string>
-    <string name="LblObservacion">Observacion</string>
-    <string name="LblNodos">Nodos</string>
+    <string name="SolicitudesLblMunicipio">Municipio</string>
+    <string name="SolicitudesLblSolicitudes">Solicitudes</string>
+    <string name="SolicitudesLblSerie">Serie</string>
+    <string name="SolicitudesLblDireccion">Direccion</string>
+    <string name="SolicitudesLblCuenta">Cuenta</string>
+    <string name="SolicitudesLblIdSerial">Id Serial</string>
+    <string name="SolicitudesLblIdProceso">Id Proceso</string>
+    <string name="SolicitudesLblTipo">Tipo</string>
+    <string name="SolicitudesLblNodos">Nodos</string>
     <string name="SolicitudesLblIdTrabajo">Id Trabajo</string>
     
 </resources>

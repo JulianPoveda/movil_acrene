@@ -72,7 +72,7 @@ public class Form_Loggin extends Activity implements OnClickListener{
 			this.LogginUser = true;
 			invalidateOptionsMenu();     		
 		}else{
-			this.FolderAplicacion = Environment.getExternalStorageDirectory() + File.separator + "EMSA";
+			this.FolderAplicacion = Environment.getExternalStorageDirectory() + File.separator + "Enerca";
 		}		
 		
 		Conexion	= new Network(this);
@@ -89,13 +89,13 @@ public class Form_Loggin extends Activity implements OnClickListener{
 		_txtUsuario 	= (EditText) findViewById(R.id.TxtUsuario);
 		_txtContrasena 	= (EditText) findViewById(R.id.TxtContrasena);
 		
-		this.PDA = SQL.IntSelectShieldWhere("amd_param_sistema", "valor", "codigo='NPDA'");		
+		this.PDA = SQL.IntSelectShieldWhere("db_parametros", "valor", "item='NPDA'");		
 		_lblPDA.setText("PDA " + this.PDA);
         _lblVersion.setText("Version " +SQL.StrSelectShieldWhere("db_parametros", "valor", "item='version'"));
        
         /***Instrucciones para iniciar el beacon el cual es el encargado de conectarse repetitivamente al servidor***/
-        envioActas 	= new Beacon(this, this.FolderAplicacion, 86400000, 60000);
-        envioActas.start();
+        /*envioActas 	= new Beacon(this, this.FolderAplicacion, 86400000, 60000);
+        envioActas.start();*/
         
         /*if(!milocListener.getEstadoGPS()){
         	DialogInformacion.putExtra("informacion", "No se puede iniciar la aplicacion sin tener activado el GPS");
@@ -111,7 +111,7 @@ public class Form_Loggin extends Activity implements OnClickListener{
 		switch (item.getItemId()) {				
 			case R.id.Recepcion:
 				if(Conexion.chkStatusNetWork()){
-					new DownLoadTrabajo(this, this.FolderAplicacion).execute("1",this.PDA+"");
+					new DownLoadTrabajo(this, this.FolderAplicacion).execute(this.PDA+"");
 				}else{
 					Toast.makeText(this,"No hay conexion a internet.", Toast.LENGTH_LONG).show();	
 				}
@@ -192,11 +192,7 @@ public class Form_Loggin extends Activity implements OnClickListener{
 			NombreLoggin	= _txtUsuario.getText().toString();
     		CedulaLoggin	= SQL.StrSelectShieldWhere("amd_usuarios", "documento", "login='"+_txtUsuario.getText()+"'");
     		NivelLoggin 	= SQL.StrSelectShieldWhere("amd_usuarios", "perfil", "login='"+_txtUsuario.getText()+"'");
-			if(NivelLoggin.equals("U")){
-				Toast.makeText(getApplicationContext(),"Acceso Concedido, inicio de sesion como tecnico.", Toast.LENGTH_SHORT).show();
-			}else if(NivelLoggin.equals("A")){
-				Toast.makeText(getApplicationContext(),"Acceso Concedido, inicio de sesion como administrador.", Toast.LENGTH_SHORT).show();	
-			}
+			Toast.makeText(getApplicationContext(),"Acceso Concedido, inicio de sesion como: " +SQL.StrSelectShieldWhere("amd_usuarios", "nombre", "login='"+_txtUsuario.getText()+"'"), Toast.LENGTH_SHORT).show();
 			_btnLoggin.setEnabled(false);
 			_txtUsuario.setEnabled(false);
 			_txtContrasena.setEnabled(false);

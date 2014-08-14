@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="${packageName}.${activityClass}" >
-    
+
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
@@ -12,183 +12,13 @@
         android:layout_below="@+id/ServicioNuevoLeft"
         android:background="@color/AzulCielo" >
 
-        <TextView
-            android:id="@+id/ActaLblDocEnterado"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaTxtDocEnterado"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/ActaTxtDocEnterado"
-            android:gravity="center_vertical|right"
-            android:text="@string/ActasLblDocEnterado"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/ActaTxtDocEnterado"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="29dp"
-            android:layout_toRightOf="@+id/ActaLblDocEnterado"
-            android:ems="10"
-            android:inputType="number" />
-
-        <EditText
-            android:id="@+id/ActaTxtDocTestigo"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/ActaTxtDocEnterado"
-            android:layout_alignBottom="@+id/ActaTxtDocEnterado"
-            android:layout_alignParentRight="true"
-            android:ems="10"
-            android:inputType="number" >
-
-            <requestFocus />
-        </EditText>
-
-        <TextView
-            android:id="@+id/ActaLblDocTestigo"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaTxtDocTestigo"
-            android:layout_alignTop="@+id/ActaTxtDocTestigo"
-            android:layout_toLeftOf="@+id/ActaTxtDocTestigo"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActaLblDocTestigo"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/ActaTxtNombreEnterado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ActaTxtDocEnterado"
-            android:layout_alignRight="@+id/ActaTxtDocEnterado"
-            android:layout_below="@+id/ActaTxtDocEnterado"
-            android:ems="10"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/ActaTxtNombreTestigo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/ActaTxtNombreEnterado"
-            android:layout_alignBottom="@+id/ActaTxtNombreEnterado"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/ActaLblDocTestigo"
-            android:ems="10"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/ActaLblNombreEnterado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaTxtNombreEnterado"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/ActaLblDocEnterado"
-            android:layout_below="@+id/ActaLblDocEnterado"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActasLblNombreEnterado"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/ActaLblNombreTestigo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaTxtNombreTestigo"
-            android:layout_alignLeft="@+id/ActaLblDocTestigo"
-            android:layout_alignRight="@+id/ActaLblDocTestigo"
-            android:layout_below="@+id/ActaLblDocTestigo"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActaLblNombreTestigo"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Spinner
-            android:id="@+id/ActaCmbTipoEnterado"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignRight="@+id/ActaTxtNombreEnterado"
-            android:layout_below="@+id/ActaTxtNombreEnterado"
-            android:layout_toRightOf="@+id/ActaLblNombreEnterado" />
-
-        <TextView
-            android:id="@+id/ActaLblTipoEnterado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaCmbTipoEnterado"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/ActaLblNombreEnterado"
-            android:layout_alignTop="@+id/ActaCmbTipoEnterado"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActaLblTipoEnterado"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Spinner
-            android:id="@+id/ActaCmbUbicacionMedidor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaCmbTipoEnterado"
-            android:layout_alignLeft="@+id/ActaTxtNombreTestigo"
-            android:layout_alignTop="@+id/ActaCmbTipoEnterado" />
-
-        <TextView
-            android:id="@+id/ActaLblUbicacionMedidor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaCmbUbicacionMedidor"
-            android:layout_alignLeft="@+id/ActaLblNombreTestigo"
-            android:layout_alignRight="@+id/ActaLblNombreTestigo"
-            android:layout_alignTop="@+id/ActaCmbTipoEnterado"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActaLblUbicacionMedidor"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Spinner
-            android:id="@+id/ActaCmbRespuestaPQR"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignRight="@+id/ActaCmbTipoEnterado"
-            android:layout_below="@+id/ActaCmbTipoEnterado"
-            android:layout_toRightOf="@+id/ActaLblTipoEnterado" />
-
-        <Spinner
-            android:id="@+id/ActaCmbUsoDerecho"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaCmbRespuestaPQR"
-            android:layout_alignLeft="@+id/ActaCmbUbicacionMedidor"
-            android:layout_below="@+id/ActaCmbUbicacionMedidor" />
-
-        <TextView
-            android:id="@+id/ActaLblRtaPQR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaCmbRespuestaPQR"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/ActaLblTipoEnterado"
-            android:layout_alignTop="@+id/ActaCmbRespuestaPQR"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActaLblRtaPQR"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/ActaLblUsoDerecho"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaCmbUsoDerecho"
-            android:layout_alignLeft="@+id/ActaLblUbicacionMedidor"
-            android:layout_alignRight="@+id/ActaLblUbicacionMedidor"
-            android:layout_below="@+id/ActaLblUbicacionMedidor"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActaLblUsoDerecho"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
         <Button
             android:id="@+id/ActaBtnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ActaCmbRespuestaPQR"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginBottom="21dp"
             android:text="@string/ActaBtnGuardar" />
 
     </RelativeLayout>
@@ -268,7 +98,6 @@
             android:gravity="left|center_vertical"
             android:text="@string/ActaLblCuenta"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -281,91 +110,79 @@
         android:background="@color/VerdeManzana" >
 
         <TextView
-            android:id="@+id/ActaLblDiagrama"
+            android:id="@+id/ActaLblCodigoAccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ActaCmbDiagrama"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:gravity="center_vertical"
-            android:text="@string/ActaLblDiagrama"
+            android:text="@string/ActaLblCodigoAccion"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
             android:id="@+id/ActaCmbDiagrama"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ActaLblDiagrama" />
-
-        <Spinner
-            android:id="@+id/ActaCmbAcometida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaLblAcometida"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ActaLblAcometida" />
-
-        <TextView
-            android:id="@+id/ActaLblItemPago"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/ActaLblDiagrama"
-            android:gravity="center_vertical"
-            android:text="@string/ActaLblItemPago"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/ActaLblAcometida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/ActaLblItemPago"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="27dp"
-            android:layout_toRightOf="@+id/ActaCmbDiagrama"
-            android:gravity="center_vertical"
-            android:text="@string/ActaLblAcometida"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:id="@+id/ActaBtnAddItem"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/ActaCmbItems"
-            android:text="@string/ActaBtnAddItem" />
-
-        <Button
-            android:id="@+id/ActaBtnRemoveItem"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/ActaBtnAddItem"
-            android:text="@string/ActaBtnRemoveItem" />
-
-        <TextView
-            android:id="@+id/ActaItemsAplicados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/ActaBtnRemoveItem"
-            android:layout_toRightOf="@+id/ActaCmbDiagrama"
-            android:gravity="center_vertical"
-            android:text="@string/ErrorTxtVacio"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_toRightOf="@+id/ActaLblCodigoAccion" />
 
         <Spinner
             android:id="@+id/ActaCmbItems"
             android:layout_width="70dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/ActaCmbDiagrama"
+            android:layout_toRightOf="@+id/ActaLblMaterialRetirado" />
+
+        <TextView
+            android:id="@+id/ActaLblMaterialRetirado"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/ActaCmbDiagrama"
+            android:gravity="center_vertical"
+            android:text="@string/ActaLblMaterialRetirado"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignTop="@+id/ActasLblNoCanuelas"
+            android:layout_toRightOf="@+id/ActasLblNoCanuelas" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ActasLblLectura"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/ActasLblLectura"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ActaCmbDiagrama"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/editText1"
+            android:gravity="center_vertical"
+            android:text="@string/ActasLblLectura"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/ActasLblNoCanuelas"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/ActaCmbDiagrama"
-            android:layout_toRightOf="@+id/ActaLblItemPago" />
+            android:layout_marginLeft="42dp"
+            android:layout_toRightOf="@+id/ActaCmbItems"
+            android:gravity="right"
+            android:text="@string/ActasLblNoCanuelas"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
 

@@ -28,7 +28,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:gravity="center_horizontal"
-            android:text="@string/LblNodos"
+            android:text="@string/SolicitudesLblNodos"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
@@ -47,7 +47,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/CmbNodoSolicitud"
             android:gravity="center_horizontal"
-            android:text="@string/LblSolicitudes"
+            android:text="@string/SolicitudesLblSolicitudes"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
@@ -58,7 +58,7 @@
         android:layout_weight="1" >
 
         <EditText
-            android:id="@+id/TxtRuta"
+            android:id="@+id/SolicitudesTxtMunicipio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -69,24 +69,24 @@
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/LblRuta"
+            android:id="@+id/SolicitudesLblMunicipio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TxtRuta"
+            android:layout_alignBottom="@+id/SolicitudesTxtMunicipio"
             android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/LblDireccion"
-            android:layout_alignTop="@+id/TxtRuta"
+            android:layout_alignRight="@+id/SolicitudesLblDireccion"
+            android:layout_alignTop="@+id/SolicitudesTxtMunicipio"
             android:gravity="right|center_vertical"
-            android:text="@string/LblRuta"
+            android:text="@string/SolicitudesLblMunicipio"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/TxtDireccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TxtRuta"
+            android:layout_alignLeft="@+id/SolicitudesTxtMunicipio"
             android:layout_alignRight="@+id/TxtSerie"
-            android:layout_below="@+id/TxtRuta"
+            android:layout_below="@+id/SolicitudesTxtMunicipio"
             android:layout_marginTop="22dp"
             android:ems="10"
             android:inputType="text" >
@@ -95,34 +95,14 @@
         </EditText>
 
         <EditText
-            android:id="@+id/TxtPropietario"
+            android:id="@+id/SolicitudesTxtIdProceso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TxtDireccion"
-            android:layout_alignRight="@+id/TxtDireccion"
-            android:layout_below="@+id/TxtDireccion"
-            android:layout_marginTop="26dp"
-            android:ems="10"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/TxtEstado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TxtCuenta"
-            android:layout_below="@+id/TxtCuenta"
+            android:layout_alignLeft="@+id/SolicitudesTxtCuenta"
+            android:layout_below="@+id/SolicitudesTxtCuenta"
             android:layout_marginTop="28dp"
             android:ems="10"
             android:inputType="text" />
-
-        <EditText
-            android:id="@+id/TxtCuenta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TxtPropietario"
-            android:layout_centerVertical="true"
-            android:ems="10"
-            android:inputType="number|text" />
 
         <EditText
             android:id="@+id/TxtSerie"
@@ -135,147 +115,104 @@
             android:inputType="text|textPersonName" />
 
         <EditText
-            android:id="@+id/TxtOrden"
+            android:id="@+id/SolicitudesTxtIdSerial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/TxtCuenta"
-            android:layout_alignBottom="@+id/TxtCuenta"
+            android:layout_alignBaseline="@+id/SolicitudesTxtCuenta"
+            android:layout_alignBottom="@+id/SolicitudesTxtCuenta"
             android:layout_alignLeft="@+id/TxtSerie"
             android:ems="10"
             android:inputType="number" />
 
         <EditText
-            android:id="@+id/TxtTipo"
+            android:id="@+id/SolicitudesTxtTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TxtEstado"
-            android:layout_alignLeft="@+id/TxtOrden"
+            android:layout_alignBottom="@+id/SolicitudesTxtIdProceso"
+            android:layout_alignLeft="@+id/SolicitudesTxtIdSerial"
             android:ems="10"
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/LblDireccion"
+            android:id="@+id/SolicitudesLblDireccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/TxtPropietario"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/TxtDireccion"
             android:layout_toLeftOf="@+id/TxtDireccion"
             android:gravity="right|center_vertical"
-            android:text="@string/LblDireccion"
+            android:text="@string/SolicitudesLblDireccion"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/LblPropietario"
+            android:id="@+id/SolicitudesLblCuenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TxtPropietario"
+            android:layout_alignBottom="@+id/SolicitudesTxtCuenta"
             android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/LblDireccion"
-            android:layout_alignTop="@+id/TxtPropietario"
+            android:layout_alignTop="@+id/SolicitudesTxtCuenta"
+            android:layout_toLeftOf="@+id/SolicitudesTxtCuenta"
             android:gravity="right|center_vertical"
-            android:text="@string/LblPropietario"
+            android:text="@string/SolicitudesLblCuenta"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/LblCuenta"
+            android:id="@+id/SolicitudesLblIdProceso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TxtCuenta"
+            android:layout_alignBottom="@+id/SolicitudesTxtIdProceso"
             android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/TxtCuenta"
-            android:layout_toLeftOf="@+id/TxtCuenta"
+            android:layout_alignRight="@+id/SolicitudesLblCuenta"
+            android:layout_alignTop="@+id/SolicitudesTxtIdProceso"
             android:gravity="right|center_vertical"
-            android:text="@string/LblCuenta"
+            android:text="@string/SolicitudesLblIdProceso"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/LblEstado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TxtEstado"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/LblCuenta"
-            android:layout_alignTop="@+id/TxtEstado"
-            android:gravity="right|center_vertical"
-            android:text="@string/LblEstado"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/LblSerie"
+            android:id="@+id/SolicitudesLblSerie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/TxtSerie"
             android:layout_alignTop="@+id/TxtSerie"
             android:layout_toLeftOf="@+id/TxtSerie"
-            android:layout_toRightOf="@+id/TxtRuta"
+            android:layout_toRightOf="@+id/SolicitudesTxtMunicipio"
             android:gravity="right|center_vertical"
-            android:text="@string/LblSerie"
+            android:text="@string/SolicitudesLblSerie"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/LblOrden"
+            android:id="@+id/SolicitudesLblIdSerial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/TxtEstado"
-            android:layout_alignLeft="@+id/LblSerie"
-            android:layout_alignRight="@+id/LblSerie"
-            android:layout_alignTop="@+id/TxtOrden"
+            android:layout_above="@+id/SolicitudesTxtIdProceso"
+            android:layout_alignLeft="@+id/SolicitudesLblSerie"
+            android:layout_alignRight="@+id/SolicitudesLblSerie"
+            android:layout_alignTop="@+id/SolicitudesTxtIdSerial"
             android:gravity="right|center_vertical"
-            android:text="@string/LblOrden"
+            android:text="@string/SolicitudesLblIdSerial"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/LblTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/TxtTipo"
-            android:layout_alignLeft="@+id/LblOrden"
-            android:layout_alignRight="@+id/LblOrden"
-            android:layout_alignTop="@+id/TxtTipo"
+            android:layout_alignBottom="@+id/SolicitudesTxtTipo"
+            android:layout_alignLeft="@+id/SolicitudesLblIdSerial"
+            android:layout_alignRight="@+id/SolicitudesLblIdSerial"
+            android:layout_alignTop="@+id/SolicitudesTxtTipo"
             android:gravity="right|center_vertical"
-            android:text="@string/LblTipo"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/LblObservacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/TxtObservacion"
-            android:gravity="center_vertical"
-            android:text="@string/LblObservacion"
+            android:text="@string/SolicitudesLblTipo"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/TxtObservacion"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_alignLeft="@+id/TxtEstado"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/TxtTipo"
-            android:ems="10"
-            android:inputType="text|textMultiLine" />
-
-        <Spinner
-            android:id="@+id/SolicitudesCmbIdTrabajo"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/TxtEstado"
-            android:layout_below="@+id/TxtEstado" />
-
-        <TextView
-            android:id="@+id/SolicitudesLblIdTrabajo"
+            android:id="@+id/SolicitudesTxtCuenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/SolicitudesCmbIdTrabajo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/SolicitudesCmbIdTrabajo"
-            android:layout_toLeftOf="@+id/SolicitudesCmbIdTrabajo"
-            android:gravity="right|center_vertical"
-            android:text="@string/SolicitudesLblIdTrabajo"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_alignLeft="@+id/TxtDireccion"
+            android:layout_below="@+id/TxtDireccion"
+            android:layout_marginTop="39dp"
+            android:ems="10"
+            android:inputType="number|text" />
 
     </RelativeLayout>
 

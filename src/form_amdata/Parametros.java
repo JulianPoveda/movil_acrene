@@ -27,6 +27,7 @@ public class Parametros extends Activity implements OnClickListener{
 	ArrayList<ArrayList<String>> InfParametros;
 	ArrayAdapter<String> AdapLstImpresoras;
 	
+	private String			FolderAplicacion = "";
 	private String 			NivelUsuario = null;
 	private Button 			BtnGuardar;
 	private String[] 		_listaImpresoras = Misc.ArrayListToArrayString(MB.GetDeviceBluetooth());
@@ -40,12 +41,12 @@ public class Parametros extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_parametros);
 		
-		Bundle bundle = getIntent().getExtras();
-		NivelUsuario	= bundle.getString("NivelUsuario");
-		
+		Bundle bundle			= getIntent().getExtras();
+		NivelUsuario			= bundle.getString("NivelUsuario");
+		this.FolderAplicacion	= bundle.getString("FolderAplicacion");	
 				
 		//Apertura, consulta y cierre de los parametros del sistema
-		SQL = new SQLite(getApplicationContext(),Environment.getExternalStorageDirectory() + File.separator + "EMSA");
+		SQL = new SQLite(getApplicationContext(),this.FolderAplicacion);
 		
 		_pda 			= (EditText) findViewById(R.id.TxtParametrosPDA);
 		_ip_servidor 	= (EditText) findViewById(R.id.TxtParametrosIpServidor);
@@ -107,15 +108,15 @@ public class Parametros extends Activity implements OnClickListener{
 			case R.id.BtnParametrosGuardar:
 				this.Informacion.clear();
             	Informacion.put("valor", _pda.getText().toString());
-            	SQL.UpdateRegistro("amd_param_sistema", Informacion, "codigo='NPDA'");
+            	SQL.UpdateRegistro("db_parametros", Informacion, "item='NPDA'");
             	
             	Informacion.clear();
             	Informacion.put("valor", _nombreTecnico.getText().toString());
-            	SQL.UpdateRegistro("amd_param_sistema", Informacion, "codigo='NOM_TECNICO'");
+            	SQL.UpdateRegistro("db_parametros", Informacion, "item='nombre_tecnico'");
             	
             	Informacion.clear();
             	Informacion.put("valor", _impresora.getSelectedItem().toString());
-            	SQL.UpdateRegistro("amd_param_sistema", Informacion, "codigo='BLUETOOTH'");      	
+            	SQL.UpdateRegistro("db_parametros", Informacion, "item='impresora'");      	
             	
             	Informacion.clear();
             	Informacion.put("valor", _ip_servidor.getText().toString());
