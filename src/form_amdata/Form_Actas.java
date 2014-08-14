@@ -79,9 +79,9 @@ public class Form_Actas extends Activity implements OnClickListener{
 	
 	
 	//Instancias a objetos graficos
-	TextView 	_lblOrden, _lblActa, _lblCuenta, _lblItemAplicados;
-	EditText	_txtDocEnterado, _txtNombreEnterado, _txtDocTestigo, _txtNombreTestigo;
-	Spinner 	_cmbTipoMedidores, _cmbAcometidaMedidor, _cmbItems, _cmbTipoEnterado, _cmbUbicacionMedidor, _cmbUsoDerecho, _cmbRtaPQR;
+	TextView 	_lblOrden, _lblActa, _lblCuenta;
+	EditText	_txtLectura, _txtNombreUsuario, _txtDocUsuario, _txtTelUsuario, _txtLongAcometida, _txtOtros, _txtFechaPago, _txtMontoPago, _txtEntidadPago, _txtObservacion;
+	Spinner 	_cmbCodigoAccion, _cmbMaterialRetirado, _cmbNumCanuelas, _cmbTipoAcometida, _cmbEstadoAcometida, _cmbCalibreAcometida, _cmbColorAcometida, _cmbPinCorte, _cmbFacturaCancelada;
 	Button 		_btnAddItem, _btnRemoveItem, _btnGuardarDatos;
 	
 	@Override
@@ -104,29 +104,29 @@ public class Form_Actas extends Activity implements OnClickListener{
 		_lblOrden 			= (TextView) findViewById(R.id.ActaLblNumOrden);
 		_lblCuenta 			= (TextView) findViewById(R.id.ActaLblNumCuenta);
 		_lblActa 			= (TextView) findViewById(R.id.ActaLblNumActa);
-		_lblItemAplicados 	= (TextView) findViewById(R.id.ActaItemsAplicados);
 		
 		_lblOrden.setText(OrdenTrabajo);
 		_lblActa.setText(ActasSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "num_acta", "id_orden='"+OrdenTrabajo+"'"));
 		_lblCuenta.setText(CuentaCliente);	
 		
-		_txtDocEnterado 	= (EditText) findViewById(R.id.ActaTxtDocEnterado);
-		_txtNombreEnterado 	= (EditText) findViewById(R.id.ActaTxtNombreEnterado);
-		_txtDocTestigo		= (EditText) findViewById(R.id.ActaTxtDocTestigo);
-		_txtNombreTestigo	= (EditText) findViewById(R.id.ActaTxtNombreTestigo);
-				
-		_cmbTipoMedidores 		= (Spinner) findViewById(R.id.ActaCmbDiagrama);
-		_cmbAcometidaMedidor 	= (Spinner) findViewById(R.id.ActaCmbAcometida);
-		_cmbItems 				= (Spinner) findViewById(R.id.ActaCmbItems);
-		_cmbTipoEnterado 		= (Spinner) findViewById(R.id.ActaCmbTipoEnterado);
-		_cmbUbicacionMedidor	= (Spinner) findViewById(R.id.ActaCmbUbicacionMedidor);
-		_cmbUsoDerecho			= (Spinner)	findViewById(R.id.ActaCmbUsoDerecho);
-		_cmbRtaPQR				= (Spinner) findViewById(R.id.ActaCmbRespuestaPQR);
+		_txtNombreUsuario 	= (EditText) findViewById(R.id.ActaTxtNombreUsuario);
+		_txtDocUsuario	 	= (EditText) findViewById(R.id.ActaTxtDocUsuario);
+		_txtTelUsuario		= (EditText) findViewById(R.id.ActaTxtTelUsuario);
+		_txtLongAcometida	= (EditText) findViewById(R.id.ActaTxtLongAcometida);
+		_txtFechaPago		= (EditText) findViewById(R.id.ActaTxtFechaPago);
+		_txtMontoPago		= (EditText) findViewById(R.id.ActaTxtMontoPago);
+		_txtEntidadPago		= (EditText) findViewById(R.id.ActaTxtEntidadPago);
+		_txtObservacion		= (EditText) findViewById(R.id.ActaTxtObservacion);
 		
-		_btnAddItem 		= (Button) findViewById(R.id.ActaBtnAddItem);
-		_btnRemoveItem 		= (Button) findViewById(R.id.ActaBtnRemoveItem);
-		_btnGuardarDatos	= (Button) findViewById(R.id.ActaBtnGuardar);
-		
+		_cmbCodigoAccion	= (Spinner) findViewById(R.id.ActaCmbCodigoAccion);
+		_cmbMaterialRetirado= (Spinner) findViewById(R.id.ActaCmbMaterialRetirado);
+		_cmbNumCanuelas		= (Spinner) findViewById(R.id.ActaCmbNoCanuelas);
+		_cmbTipoAcometida	= (Spinner) findViewById(R.id.ActaCmbTipoAcometida);
+		_cmbEstadoAcometida	= (Spinner) findViewById(R.id.ActaCmbEstadoAcometida);
+		_cmbCalibreAcometida= (Spinner) findViewById(R.id.ActaCmbCalibreAcometida);
+		_cmbColorAcometida	= (Spinner) findViewById(R.id.ActaCmbColorAcometida); 
+		_cmbPinCorte		= (Spinner) findViewById(R.id.ActaCmbPinCorte);
+		_cmbFacturaCancelada= (Spinner) findViewById(R.id.ActaCmbFacturaCancelada);
 		
 		ConexionMedidor = ActasSQL.SelectData("amd_tipos_medidores", "descripcion", "id_serial IS NOT NULL");
 		ActasUtil.ArrayContentValuesToString(StringConexionMedidor, ConexionMedidor, "descripcion");		

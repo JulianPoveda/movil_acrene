@@ -2,10 +2,25 @@
 <resources>
     <string name="ActaLblOrden">N° Orden</string>
     <string name="ActaLblActa">N° Acta</string>
-    <string name="ActaLblCuenta">N° Cuenta</string>
-    <string name="ActaLblCodigoAccion">Codigo de Accion</string><string name="ActasLblLectura">Lectura</string>
+    <string name="ActasLblCuenta">N° Cuenta</string>
+    <string name="ActasLblCodigoAccion">Codigo de Accion</string><string name="ActasLblLectura">Lectura</string>
     <string name="ActaLblMaterialRetirado">Material Retirado</string>
     
     <string name="ActasLblNoCanuelas">No Cañuelas</string>
+    <string name="ActaLblTipoAcometida">Tipo Acometida</string>
+    <string name="ActaLblEstadoAcometida">Estado Acometida</string>
+    <string name="ActaLblLongitudAcometida">Longitud Acometida</string>
+    <string name="ActaLblCalibreAcometida">Calibre Acometida</string>
+    <string name="ActaLblColorAcometida">Color Acometida</string>
+    <string name="ActaLblPinCorte">Pin de Corte</string>
+    <string name="ActaLblOtros">Otros</string>
+    <string name="ActaLblFacturaCancelada">Factura Cancelada</string>
+    <string name="ActaLblFechaPago">Fecha de Pago</string>
+    <string name="ActaLblMontoPago">Monto del Pago</string>
+    <string name="ActaLblEntidad">Entidad De Pago</string>
+    <string name="ActaLblNombreUsuario">Nombre Usuario</string>
+    <string name="ActaLblDocumentoUsuario">C.C. Usuario</string>
+    <string name="ActaLblTelefonoUsuario">Telefono Usuario</string>
+    <string name="ActaLblObservacion">Observacion</string>
     
 </resources>
