@@ -9,5 +9,7 @@
 <string name="SellosBtnRegistrar">Registrar Sello</string>
 <string name="SellosTxtEmpty"></string>
 <string name="SellosBtnEliminar">Eliminar Sello</string>
+<string name="ObsLblTitulo">Observacion Sellos</string>
+<string name="SellosLblTitulo">OBSERVACION DE SELLOS</string>
     
 </resources>

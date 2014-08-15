@@ -53,25 +53,18 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 	
 	ContentValues 			_tempRegistro 	= new ContentValues();
 	ArrayList<ContentValues>_tempTabla 		= new ArrayList<ContentValues>();	
-	
-	private String _strTipoMovimiento[] = {"RETIRADO","INSTALADO","EXISTENTE"};
-	private String _strEstado[] = {"N-NORMAL","R-ROTO","P-PEGADO","A-ANORMAL"};
-	
+		
+	private String _strTipoMovimiento[] = {"...","RETIRADO","INSTALADO"};
+	private String _strTipoSello[] 		= {"...","ADHESIVO","ANCLA"};
+		
 	ArrayAdapter<String> AdaptadorTipoMovimiento;
-	ArrayAdapter<String> AdaptadorEstado;
-	
+		
 	ArrayList<String> strTipoSello 			= new ArrayList<String>();
 	ArrayAdapter<String> AdaptadorTipoSello;
 	
-	ArrayList<String> strUbicacion 			= new ArrayList<String>();
-	ArrayAdapter<String> AdaptadorUbicacion;
-	
-	ArrayList<String> strColor 			= new ArrayList<String>();
-	ArrayAdapter<String> AdaptadorColor;
 	
 	EditText	_txtSerie;
-	TextView	_lblEstado;
-	Spinner 	_cmbTipoMovimiento, _cmbTipoSello, _cmbUbicacion, _cmbColor, _cmbEstado;
+	Spinner 	_cmbTipoMovimiento, _cmbTipoSello;
 	Button		_btnRegistrarSello, _btnEliminarSello;
 	
 	@Override
@@ -93,43 +86,21 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 		DialogoSimple 	= new Intent(this,DialogSingleTxt.class); 
 		FcnSellos		= new Class_Sellos(this, this.FolderAplicacion, this.CedulaUsuario, this.OrdenTrabajo, this.CuentaCliente);
 		
-		_lblEstado 			= (TextView) findViewById(R.id.SellosLblEstado);
 		_txtSerie			= (EditText) findViewById(R.id.SellosTxtSerie);		
 		
 		_cmbTipoMovimiento 	= (Spinner) findViewById(R.id.SellosCmbTipoIngreso);
 		_cmbTipoSello		= (Spinner) findViewById(R.id.SellosCmbTipoSello);
-		_cmbUbicacion		= (Spinner) findViewById(R.id.SellosCmbUbicacion);
-		_cmbColor			= (Spinner) findViewById(R.id.SellosCmbColor);
-		_cmbEstado			= (Spinner) findViewById(R.id.SellosCmbEstado);
-		
+				
 		_btnRegistrarSello 	= (Button) findViewById(R.id.SellosBtnRegistrar);
 		_btnEliminarSello	= (Button) findViewById(R.id.SellosBtnEliminar);
 		
 		AdaptadorTipoMovimiento = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,_strTipoMovimiento);
 		_cmbTipoMovimiento.setAdapter(AdaptadorTipoMovimiento);
 		
-		_tempTabla = SellosSQL.SelectData("amd_param_tipo_sello", "descripcion", " codigo IS NOT NULL");
-		SellosUtil.ArrayContentValuesToString(strTipoSello, _tempTabla, "descripcion");
-		AdaptadorTipoSello 	= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, strTipoSello); 
+		AdaptadorTipoSello 	= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, _strTipoSello); 
 		_cmbTipoSello.setAdapter(AdaptadorTipoSello);
 		
-		
-		_tempTabla = SellosSQL.SelectData("amd_param_ubicacion_sello", "descripcion", " codigo IS NOT NULL");
-		SellosUtil.ArrayContentValuesToString(strUbicacion, _tempTabla, "descripcion");
-		AdaptadorUbicacion 	= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, strUbicacion); 
-		_cmbUbicacion.setAdapter(AdaptadorUbicacion);
-		
-		
-		_tempTabla = SellosSQL.SelectData("amd_param_color_sello", "descripcion", " codigo IS NOT NULL");
-		SellosUtil.ArrayContentValuesToString(strColor, _tempTabla, "descripcion");
-		AdaptadorColor 	= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, strColor); 
-		_cmbColor.setAdapter(AdaptadorColor);
-		
-		
-		AdaptadorEstado 		= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,_strEstado);
-		_cmbEstado.setAdapter(AdaptadorEstado);
-		
-		GraphSellosTabla= new Tablas(this, "tipo_ingreso,tipo_sello,serie,color,ubicacion,irregularidad", "165,165,165,165,165,415", 1, "#74BBEE", "#A9CFEA" ,"#EE7474");
+		GraphSellosTabla= new Tablas(this, "tipo_ingreso,tipo_sello,serie", "165,165,165,165,165,415", 1, "#74BBEE", "#A9CFEA" ,"#EE7474");
 		FilaTablaSellos	= (LinearLayout) findViewById(R.id.TablaSellos);
 		
 		this.VerSellosRegistrados();
@@ -163,92 +134,6 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 				startActivity(k);
 				return true;
 		
-			case R.id.Acometida:
-				finish();
-				k = new Intent(this, Acometida.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("Nivel", NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
-				startActivity(k);
-				return true;
-			
-			case R.id.CensoPruebas:
-				finish();
-				k = new Intent(this, Form_CensoCarga.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("Nivel", NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
-				startActivity(k);
-				return true;	
-				
-			case R.id.ContadorTransformador:
-				finish();
-				k = new Intent(this, Form_CambioContador.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("Nivel", NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
-				startActivity(k);
-				return true;
-		
-			case R.id.IrregularidadesObservaciones:
-				finish();
-				k = new Intent(this, IrregularidadesObservaciones.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("Nivel", NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
-				startActivity(k);
-				return true;
-				
-				
-			case R.id.EncontradoPruebas:
-				finish();
-				k = new Intent(this, Form_MedidorPruebas.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("Nivel", NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
-				startActivity(k);
-				return true;	
-				
-				
-			case R.id.DatosAdecuaciones:
-				finish();
-				k = new Intent(this, Form_DatosActa_Adecuaciones.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("NivelUsuario", 	NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
-				startActivity(k);
-				return true;	
-				
-			case R.id.Materiales:
-				finish();
-				k = new Intent(this, Materiales.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("NivelUsuario", 	NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
-				startActivity(k);
-				return true;		
-				
 			case R.id.Volver:
 				finish();
 				k = new Intent(this, Form_Solicitudes.class);
@@ -271,12 +156,12 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 		switch(parent.getId()){
 			case R.id.SellosCmbTipoIngreso:
-				if(_cmbTipoMovimiento.getSelectedItem().toString().equals("INSTALADO")){
+				/*if(_cmbTipoMovimiento.getSelectedItem().toString().equals("INSTALADO")){
 					_cmbEstado.setEnabled(false);
 					_cmbEstado.setSelection(AdaptadorEstado.getPosition("N-NORMAL"));
 				}else{
 					_cmbEstado.setEnabled(true);
-				}
+				}*/
 				break;				
 		}		
 	}
@@ -300,9 +185,9 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 				break;
 				
 			case R.id.SellosBtnEliminar:
-				if(!this.FcnSellos.eliminarSello(_cmbTipoMovimiento.getSelectedItem().toString(), _cmbTipoSello.getSelectedItem().toString(), _txtSerie.getText().toString(), _cmbColor.getSelectedItem().toString())){
+				/*if(!this.FcnSellos.eliminarSello(_cmbTipoMovimiento.getSelectedItem().toString(), _cmbTipoSello.getSelectedItem().toString(), _txtSerie.getText().toString(), _cmbColor.getSelectedItem().toString())){
 					Toast.makeText(getApplicationContext(),"Error al tratar de eliminar el sello.", Toast.LENGTH_SHORT).show();
-				}
+				}*/
 				this.VerSellosRegistrados();
 				break;
 		}		
@@ -315,7 +200,7 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 			if (resultCode == RESULT_OK && requestCode == CONFIRM_SELLOS) {
 				if(data.getExtras().getBoolean("response")){
 					if(FcnSellos.getConfirmacionSerie(_txtSerie.getText().toString(), data.getExtras().getString("txt1"))){
-						this.FcnSellos.registrarSello(_cmbTipoMovimiento.getSelectedItem().toString(), _cmbTipoSello.getSelectedItem().toString(), _cmbUbicacion.getSelectedItem().toString(), _cmbColor.getSelectedItem().toString(), _txtSerie.getText().toString(), _cmbEstado.getSelectedItem().toString());
+						//this.FcnSellos.registrarSello(_cmbTipoMovimiento.getSelectedItem().toString(), _cmbTipoSello.getSelectedItem().toString(), _cmbUbicacion.getSelectedItem().toString(), _cmbColor.getSelectedItem().toString(), _txtSerie.getText().toString(), _cmbEstado.getSelectedItem().toString());
 						this.VerSellosRegistrados();
 					}
 				}

@@ -97,32 +97,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
-            android:id="@+id/ActaCmbColorAcometida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaLblColorAcometida"
-            android:layout_alignLeft="@+id/ActaCmbCalibreAcometida"
-            android:layout_alignRight="@+id/ActaCmbCalibreAcometida"
-            android:layout_alignTop="@+id/ActaLblColorAcometida" />
-
-        <TextView
-            android:id="@+id/ActaLblPinCorte"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/ActaLblColorAcometida"
-            android:layout_toLeftOf="@+id/ActaCmbColorAcometida"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActaLblPinCorte"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Spinner
             android:id="@+id/ActaCmbPinCorte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ActaLblPinCorte"
-            android:layout_alignLeft="@+id/ActaCmbColorAcometida"
-            android:layout_alignRight="@+id/ActaCmbColorAcometida"
+            android:layout_alignLeft="@+id/ActaCmbCalibreAcometida"
+            android:layout_alignRight="@+id/ActaCmbCalibreAcometida"
             android:layout_alignTop="@+id/ActaLblPinCorte" />
 
         <TextView
@@ -328,6 +308,27 @@
             android:ems="10"
             android:inputType="textMultiLine" />
 
+        <TextView
+            android:id="@+id/ActaLblPinCorte"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/ActaLblColorAcometida"
+            android:layout_below="@+id/ActaLblColorAcometida"
+            android:gravity="right|center_vertical"
+            android:text="@string/ActaLblPinCorte"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/ActaTxtColorAcometida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ActaLblColorAcometida"
+            android:layout_alignTop="@+id/ActaLblColorAcometida"
+            android:layout_toRightOf="@+id/ActaLblColorAcometida"
+            android:ems="10"
+            android:inputType="text" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -429,7 +430,7 @@
 
         <Spinner
             android:id="@+id/ActaCmbCodigoAccion"
-            android:layout_width="300dp"
+            android:layout_width="400dp"
             android:layout_height="45dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/ActaLblCodigoAccion" />
@@ -454,8 +455,9 @@
 
         <Spinner
             android:id="@+id/ActaCmbNoCanuelas"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignTop="@+id/ActasLblNoCanuelas"
             android:layout_toRightOf="@+id/ActasLblNoCanuelas" />
 
@@ -465,7 +467,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ActasLblLectura"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_alignTop="@+id/ActasLblLectura"
             android:ems="10"
             android:inputType="numberDecimal" />
 
@@ -473,20 +475,20 @@
             android:id="@+id/ActasLblLectura"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaCmbCodigoAccion"
-            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/ActaCmbNoCanuelas"
+            android:layout_alignTop="@+id/ActaCmbNoCanuelas"
             android:layout_toLeftOf="@+id/editText1"
-            android:gravity="center_vertical"
+            android:gravity="right|center_vertical"
             android:text="@string/ActasLblLectura"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/ActasLblNoCanuelas"
-            android:layout_width="250dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/ActaCmbCodigoAccion"
-            android:layout_marginLeft="42dp"
+            android:layout_marginLeft="22dp"
             android:layout_toRightOf="@+id/ActaCmbMaterialRetirado"
             android:gravity="right|center_vertical"
             android:text="@string/ActasLblNoCanuelas"

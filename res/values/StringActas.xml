@@ -3,7 +3,7 @@
     <string name="ActaLblOrden">N° Orden</string>
     <string name="ActaLblActa">N° Acta</string>
     <string name="ActasLblCuenta">N° Cuenta</string>
-    <string name="ActasLblCodigoAccion">Codigo de Accion</string><string name="ActasLblLectura">Lectura</string>
+    <string name="ActasLblCodigoAccion">Codigo Accion</string><string name="ActasLblLectura">Lectura</string>
     <string name="ActaLblMaterialRetirado">Material Retirado</string>
     
     <string name="ActasLblNoCanuelas">No Cañuelas</string>
