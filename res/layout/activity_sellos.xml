@@ -31,8 +31,7 @@
         <Spinner
             android:id="@+id/SellosCmbTipoSello"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/SellosTxtSerie"
+            android:layout_height="45dp"
             android:layout_alignTop="@+id/SellosLblTipoSellos"
             android:layout_toRightOf="@+id/SellosLblTipoSellos" />
 
@@ -72,7 +71,7 @@
             android:id="@+id/SellosLblSerie"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_above="@+id/SellosBtnRegistrar"
+            android:layout_alignBottom="@+id/SellosTxtSerie"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/SellosTxtSerie"
             android:gravity="right|center_vertical"
@@ -97,19 +96,6 @@
             android:layout_marginBottom="24dp"
             android:layout_marginLeft="44dp"
             android:text="@string/SellosBtnRegistrar" />
-
-        <EditText
-            android:id="@+id/SellosTxtSerie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/SellosLblSerie"
-            android:layout_alignLeft="@+id/SellosCmbTipoIngreso"
-            android:layout_alignTop="@+id/SellosLblSerie"
-            android:ems="10"
-            android:inputType="textPassword" >
-
-            <requestFocus />
-        </EditText>
 
         <TextView
             android:id="@+id/SellosLblTipoSellos"
@@ -136,11 +122,20 @@
             android:id="@+id/editText1"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:layout_alignLeft="@+id/SellosLblObservacion"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/SellosCmbTipoSello"
+            android:layout_below="@+id/SellosLblObservacion"
+            android:layout_toRightOf="@+id/TablaSellos"
             android:ems="10"
             android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/SellosTxtSerie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/SellosCmbTipoSello"
+            android:layout_below="@+id/SellosCmbTipoSello"
+            android:ems="10"
+            android:inputType="textPassword" />
 
     </RelativeLayout>
 

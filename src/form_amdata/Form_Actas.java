@@ -162,18 +162,6 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "Enerca");
 				startActivity(k);
 				return true;
-							
-			case R.id.Volver:
-				finish();
-				k = new Intent(this, Form_Solicitudes.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("NivelUsuario", 	NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion",  Environment.getExternalStorageDirectory() + File.separator + "Enerca");
-				startActivity(k);
-				return true;	
 				
 			case R.id.ImpresionOriginal:
 				ActaImpresa.FormatoVerificacion(OrdenTrabajo,"Desviacion",1, CedulaUsuario);

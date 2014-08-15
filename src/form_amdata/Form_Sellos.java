@@ -25,8 +25,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class Form_Sellos extends Activity implements OnClickListener, OnItemSelectedListener{
@@ -133,18 +131,6 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
 				startActivity(k);
 				return true;
-		
-			case R.id.Volver:
-				finish();
-				k = new Intent(this, Form_Solicitudes.class);
-				k.putExtra("NombreUsuario", this.NombreUsuario);
-				k.putExtra("CedulaUsuario", CedulaUsuario);
-				k.putExtra("NivelUsuario", 	NivelUsuario);
-				k.putExtra("OrdenTrabajo", OrdenTrabajo);
-				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion",  Environment.getExternalStorageDirectory() + File.separator + "EMSA");
-				startActivity(k);
-				return true;	
 				
 			default:
 				return super.onOptionsItemSelected(item);

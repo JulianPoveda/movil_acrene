@@ -69,7 +69,7 @@
             android:screenOrientation="sensorLandscape" >
         </activity>
         <activity
-            android:name="form_amdata.Parametros"
+            android:name="form_amdata.Form_Parametros"
             android:label="@string/title_activity_parametros"
             android:screenOrientation="sensorLandscape" >
         </activity>

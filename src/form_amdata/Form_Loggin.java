@@ -134,34 +134,13 @@ public class Form_Loggin extends Activity implements OnClickListener{
 				
 			case R.id.ParametrosSistema:
 				Intent parametros;
-				parametros = new Intent(this, Parametros.class);
+				parametros = new Intent(this, Form_Parametros.class);
 				parametros.putExtra("NombreUsuario", NombreLoggin);
 				parametros.putExtra("CedulaUsuario", CedulaLoggin);
 				parametros.putExtra("NivelUsuario", NivelLoggin);
 				parametros.putExtra("FolderAplicacion", this.FolderAplicacion);
 				startActivity(parametros);
-				return true;
-			
-			case R.id.NuevoServicio:
-				Intent servicioNuevo;
-				servicioNuevo = new Intent(this, Form_ServicioNuevo.class);
-				servicioNuevo.putExtra("NombreUsuario", NombreLoggin);
-				servicioNuevo.putExtra("CedulaUsuario", CedulaLoggin);
-				servicioNuevo.putExtra("NivelUsuario", NivelLoggin);
-				servicioNuevo.putExtra("FolderAplicacion", this.FolderAplicacion);
-				startActivity(servicioNuevo);
-				return true;					
-				
-			case R.id.Autogestion:
-				Intent Autogestion;
-				Autogestion = new Intent(this, Form_Autogestion.class);
-				Autogestion.putExtra("NombreUsuario", NombreLoggin);
-				Autogestion.putExtra("CedulaUsuario", CedulaLoggin);
-				Autogestion.putExtra("NivelUsuario", NivelLoggin);
-				Autogestion.putExtra("FolderAplicacion", this.FolderAplicacion);
-				startActivity(Autogestion);
-				return true;	
-			
+				return true;			
 			
 			case R.id.SalirSistema:
 				this.finish();
@@ -209,20 +188,12 @@ public class Form_Loggin extends Activity implements OnClickListener{
 	 public boolean onPrepareOptionsMenu(Menu menu) {
 		 if(LogginUser){
 			 menu.findItem(R.id.OrdenesTrabajo).setEnabled(true);
-			 menu.findItem(R.id.ImpresionPrueba).setEnabled(true);
 			 menu.findItem(R.id.Servidor).setEnabled(true);
-			 menu.findItem(R.id.Bodega).setEnabled(true);
 			 menu.findItem(R.id.Sistema).setEnabled(true);
-			 menu.findItem(R.id.Autogestion).setEnabled(true);
-			 menu.findItem(R.id.NuevoServicio).setEnabled(true);
 		 }else{
 			 menu.findItem(R.id.OrdenesTrabajo).setEnabled(false);
-			 menu.findItem(R.id.ImpresionPrueba).setEnabled(false);
 			 menu.findItem(R.id.Servidor).setEnabled(false);
-			 menu.findItem(R.id.Bodega).setEnabled(false);
 			 menu.findItem(R.id.Sistema).setEnabled(false);
-			 menu.findItem(R.id.Autogestion).setEnabled(false);
-			 menu.findItem(R.id.NuevoServicio).setEnabled(false);
 		 }    	
 		 return true;  
 	}

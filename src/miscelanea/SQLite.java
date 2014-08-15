@@ -128,6 +128,7 @@ public class SQLite {
 															"dig_monto_factura 		DOUBLE PRECISION NOT NULL DEFAULT 0," +
 															"dig_entidad_factura 	VARCHAR(255)," +
 															"dig_observacion 		VARCHAR(500)," +
+															"dig_observacion_sellos	VARCHAR(500)," +
 															"dig_nombre_usuario 	VARCHAR(100)," +
 															"dig_ident_usuario 		VARCHAR(50)," +
 															"dig_telefono 			VARCHAR(30)," +
@@ -142,8 +143,9 @@ public class SQLite {
 			db.execSQL(	"CREATE TABLE amd_sellos_ordenes(	id_serial 			INTEGER NOT NULL REFERENCES amd_ordenes_trabajo(id_serial),"
 														+ "	id_tipo_archivo		VARCHAR(1) NOT NULL REFERENCES amd_ordenes_trabajo(id_tipo_archivo)," 
 														+ " movimiento 			VARCHAR(1) NOT NULL,"					
+														+ " tipo_sello 			VARCHAR(50) NOT NULL,"					
 														+ "	serie				VARCHAR(20) NOT NULL,"
-														+ "	PRIMARY KEY(id_serial,id_tipo_archivo,movimiento,serie))");
+														+ "	PRIMARY KEY(id_serial,id_tipo_archivo,movimiento,tipo_sello,serie))");
 		}
 
 		@Override
