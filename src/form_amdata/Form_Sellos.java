@@ -1,6 +1,5 @@
 package form_amdata;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import class_amdata.Class_Sellos;
@@ -13,7 +12,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 public class Form_Sellos extends Activity implements OnClickListener, OnItemSelectedListener{
 	private static int 		CONFIRM_SELLOS = 1;
@@ -61,9 +60,9 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 	ArrayAdapter<String> AdaptadorTipoSello;
 	
 	
-	EditText	_txtSerie;
+	EditText	_txtSerie, _txtObservacion;
 	Spinner 	_cmbTipoMovimiento, _cmbTipoSello;
-	Button		_btnRegistrarSello, _btnEliminarSello;
+	Button		_btnRegistrarSello, _btnEliminarSello, _btnGuardarObservacion;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +83,15 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 		DialogoSimple 	= new Intent(this,DialogSingleTxt.class); 
 		FcnSellos		= new Class_Sellos(this, this.FolderAplicacion, this.CedulaUsuario, this.OrdenTrabajo, this.CuentaCliente);
 		
-		_txtSerie			= (EditText) findViewById(R.id.SellosTxtSerie);		
+		_txtSerie			= (EditText) findViewById(R.id.SellosTxtSerie);	
+		_txtObservacion		= (EditText) findViewById(R.id.SellosTxtObservacion);
 		
 		_cmbTipoMovimiento 	= (Spinner) findViewById(R.id.SellosCmbTipoIngreso);
 		_cmbTipoSello		= (Spinner) findViewById(R.id.SellosCmbTipoSello);
 				
-		_btnRegistrarSello 	= (Button) findViewById(R.id.SellosBtnRegistrar);
-		_btnEliminarSello	= (Button) findViewById(R.id.SellosBtnEliminar);
+		_btnRegistrarSello 		= (Button) findViewById(R.id.SellosBtnRegistrar);
+		_btnEliminarSello		= (Button) findViewById(R.id.SellosBtnEliminar);
+		_btnGuardarObservacion	= (Button) findViewById(R.id.SellosBtnGuardarObservacion);
 		
 		AdaptadorTipoMovimiento = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,_strTipoMovimiento);
 		_cmbTipoMovimiento.setAdapter(AdaptadorTipoMovimiento);
@@ -101,9 +102,13 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 		GraphSellosTabla= new Tablas(this, "tipo_ingreso,tipo_sello,serie", "165,165,165,165,165,415", 1, "#74BBEE", "#A9CFEA" ,"#EE7474");
 		FilaTablaSellos	= (LinearLayout) findViewById(R.id.TablaSellos);
 		
+		_txtObservacion.setText(SellosSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "dig_observacion_sellos",  "id_serial="+this.OrdenTrabajo+" AND cuenta="+this.CuentaCliente));
+		
+		
 		this.VerSellosRegistrados();
 		_btnEliminarSello.setOnClickListener(this);
 		_btnRegistrarSello.setOnClickListener(this);
+		_btnGuardarObservacion.setOnClickListener(this);
 		_cmbTipoMovimiento.setOnItemSelectedListener(this);		
 	
 	}
@@ -128,7 +133,7 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 				k.putExtra("Nivel", NivelUsuario);
 				k.putExtra("OrdenTrabajo", OrdenTrabajo);
 				k.putExtra("CuentaCliente",CuentaCliente);
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
+				k.putExtra("FolderAplicacion", this.FolderAplicacion);
 				startActivity(k);
 				return true;
 				
@@ -171,10 +176,20 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 				break;
 				
 			case R.id.SellosBtnEliminar:
-				/*if(!this.FcnSellos.eliminarSello(_cmbTipoMovimiento.getSelectedItem().toString(), _cmbTipoSello.getSelectedItem().toString(), _txtSerie.getText().toString(), _cmbColor.getSelectedItem().toString())){
+				if(!this.FcnSellos.eliminarSello(_cmbTipoMovimiento.getSelectedItem().toString(), _cmbTipoSello.getSelectedItem().toString(), _txtSerie.getText().toString())){
 					Toast.makeText(getApplicationContext(),"Error al tratar de eliminar el sello.", Toast.LENGTH_SHORT).show();
-				}*/
+				}
 				this.VerSellosRegistrados();
+				break;
+				
+			case R.id.SellosBtnGuardarObservacion:
+				this._tempRegistro.clear();
+				this._tempRegistro.put("dig_observacion_sellos",_txtObservacion.getText().toString());
+				if(SellosSQL.UpdateRegistro("amd_ordenes_trabajo", _tempRegistro, "id_serial="+this.OrdenTrabajo+" AND cuenta="+this.CuentaCliente)){
+					Toast.makeText(getApplicationContext(),"Observacion de sellos registrada correctamente..", Toast.LENGTH_SHORT).show();
+				}else{
+					Toast.makeText(getApplicationContext(),"Error al registrar la observacion de sellos.", Toast.LENGTH_SHORT).show();
+				}
 				break;
 		}		
 	}
@@ -186,7 +201,7 @@ public class Form_Sellos extends Activity implements OnClickListener, OnItemSele
 			if (resultCode == RESULT_OK && requestCode == CONFIRM_SELLOS) {
 				if(data.getExtras().getBoolean("response")){
 					if(FcnSellos.getConfirmacionSerie(_txtSerie.getText().toString(), data.getExtras().getString("txt1"))){
-						//this.FcnSellos.registrarSello(_cmbTipoMovimiento.getSelectedItem().toString(), _cmbTipoSello.getSelectedItem().toString(), _cmbUbicacion.getSelectedItem().toString(), _cmbColor.getSelectedItem().toString(), _txtSerie.getText().toString(), _cmbEstado.getSelectedItem().toString());
+						this.FcnSellos.registrarSello(_cmbTipoMovimiento.getSelectedItem().toString(), _cmbTipoSello.getSelectedItem().toString(), _txtSerie.getText().toString());
 						this.VerSellosRegistrados();
 					}
 				}

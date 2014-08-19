@@ -237,7 +237,7 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 				k.putExtra("NivelUsuario", NivelUsuario);
 				k.putExtra("OrdenTrabajo",_txtIdSerial.getText().toString());
 				k.putExtra("CuentaCliente", _txtCuenta.getText().toString());
-				k.putExtra("FolderAplicacion", Environment.getExternalStorageDirectory() + File.separator + "EMSA");
+				k.putExtra("FolderAplicacion", this.FolderAplicacion);
 				startActivity(k);
 			}
 		}else if(resultCode == RESULT_OK && requestCode == CONFIRMACION_CERRAR_ORDEN){

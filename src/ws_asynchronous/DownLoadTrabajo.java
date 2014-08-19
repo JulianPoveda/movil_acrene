@@ -156,7 +156,7 @@ public class DownLoadTrabajo extends AsyncTask<String, Integer, Integer>{
 	@Override
 	protected void onPostExecute(Integer rta) {
 		if(rta==1){
-			Toast.makeText(this.ConnectServerContext,"Carga de trabajo finalizada."+response.toString(), Toast.LENGTH_LONG).show();
+			Toast.makeText(this.ConnectServerContext,"Carga de trabajo finalizada.", Toast.LENGTH_LONG).show();
 		}else if(rta==-1){
 			Toast.makeText(this.ConnectServerContext,"Intento fallido, el servidor no ha respondido.", Toast.LENGTH_SHORT).show();
 		}else if(rta==-2){

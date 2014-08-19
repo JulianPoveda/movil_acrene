@@ -119,7 +119,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/SellosTxtObservacion"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_alignParentRight="true"
@@ -136,6 +136,16 @@
             android:layout_below="@+id/SellosCmbTipoSello"
             android:ems="10"
             android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/SellosBtnGuardarObservacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/SellosTxtObservacion"
+            android:layout_below="@+id/SellosTxtObservacion"
+            android:layout_marginLeft="152dp"
+            android:layout_marginTop="47dp"
+            android:text="@string/SellosBtnGuardarObservacion" />
 
     </RelativeLayout>
 

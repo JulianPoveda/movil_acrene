@@ -11,5 +11,6 @@
 <string name="SellosBtnEliminar">Eliminar Sello</string>
 <string name="ObsLblTitulo">Observacion Sellos</string>
 <string name="SellosLblTitulo">OBSERVACION DE SELLOS</string>
+<string name="SellosBtnGuardarObservacion">Guardar Observacion</string>
     
 </resources>

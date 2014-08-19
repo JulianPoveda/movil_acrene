@@ -116,8 +116,8 @@ public class SQLite {
 															"dig_codigo_accion 		INTEGER," +
 															"dig_material_retirado 	BOOELAN NOT NULL DEFAULT FALSE," +
 															"dig_num_canuelas 		INTEGER NOT NULL DEFAULT 0," +
-															"dig_tipo_acometida 	VARCHAR(1)," +
-															"dig_estado_acometida 	VARCHAR(1)," +
+															"dig_tipo_acometida 	VARCHAR(20)," +
+															"dig_estado_acometida 	VARCHAR(20)," +
 															"dig_longitud_acometida DOUBLE PRECISION NOT NULL DEFAULT 0," +
 															"dig_calibre_acometida 	INTEGER," +
 															"dig_color_acometida 	VARCHAR(20)," +
@@ -141,11 +141,11 @@ public class SQLite {
 			/*******Tablas con la informacion respetiva de las anomalias generales y las aplicadas a la orden en particular*******/
 			/*********************************************************************************************************************/
 			db.execSQL(	"CREATE TABLE amd_sellos_ordenes(	id_serial 			INTEGER NOT NULL REFERENCES amd_ordenes_trabajo(id_serial),"
-														+ "	id_tipo_archivo		VARCHAR(1) NOT NULL REFERENCES amd_ordenes_trabajo(id_tipo_archivo)," 
-														+ " movimiento 			VARCHAR(1) NOT NULL,"					
+														+ "	cuenta				VARCHAR(50) NOT NULL REFERENCES amd_ordenes_trabajo(cuenta)," 
+														+ " movimiento 			VARCHAR(20) NOT NULL,"					
 														+ " tipo_sello 			VARCHAR(50) NOT NULL,"					
 														+ "	serie				VARCHAR(20) NOT NULL,"
-														+ "	PRIMARY KEY(id_serial,id_tipo_archivo,movimiento,tipo_sello,serie))");
+														+ "	PRIMARY KEY(id_serial,cuenta,movimiento,tipo_sello,serie))");
 		}
 
 		@Override
@@ -190,71 +190,7 @@ public class SQLite {
 	}
 
 	
-	
-	
-	//Funcion para ejecutar un query, recibe como parametros un array list con los querys a ejecutar
-	/*public int ExecuteArrayListQuery(String _campo, ArrayList<ContentValues> _informacion){
-		int _retorno = 0;
-		ContentValues QueryExecute = new ContentValues();
-		abrir();
-		for(int i=0;i< _informacion.size();i++){
-			QueryExecute.clear();
-			QueryExecute = _informacion.get(i);
-			String _sentencia = QueryExecute.get(_campo).toString().replace("DELETE", "DELETE FROM");
-			if(_sentencia.indexOf("AMD_CONTADOR_CLIENTE_ORDEN")>=0){
-				_retorno +=2;
-			}
-			try{
-				nBD.execSQL(_sentencia);  
-				_retorno++;
-			}catch(Exception e){			
-			}	
-		}
-		cerrar();
-		return _retorno;
-	}*/
-	
-	
-	
-	
-	//Funcion que inserta una serie de registros consecutivos en una tabla en particular
-	/*public int InsertArrayRegistro(String Tabla, ArrayList<ContentValues> Informacion){
-		int _retorno = 0;
-		ContentValues RegistroInsert = new ContentValues();
-		abrir();
-		for(int i=0;i< Informacion.size();i++){
-			RegistroInsert.clear();
-			RegistroInsert = Informacion.get(i);
-			try{
-				if(nBD.insert(this.TablasAmData.getAsString(Tabla),null,RegistroInsert)>=0){
-					_retorno++;
-				}
-			}catch(Exception e){			
-			}	
-		}
-		cerrar();
-		return _retorno;		
-	}*/
-		
-	
-	
-	//Funcion que inserta una serie de registros consecutivos en una tabla en particular
-	/*public void EjecutarArraySQL(String _campo, ArrayList<ContentValues> _informacion){
-		ContentValues RegistroInsert = new ContentValues();
-		abrir();
-		for(int i=0;i< _informacion.size();i++){
-			RegistroInsert.clear();
-			RegistroInsert = _informacion.get(i);
-			String _sentencia = RegistroInsert.get(_campo).toString();
-			try{
-				nBD.execSQL(_sentencia);  
-			}catch(Exception e){			
-			}	
-		}
-		cerrar();
-	}*/
-	
-	
+
 	/**Funcion para ejecutar una sentencia SQL recibida por parametro
 	 * @param _sql	->Sentencia SQL a ejecutar
 	 * @return		->true en caso de ejecutarse correctamente, false en otros casos
@@ -271,25 +207,7 @@ public class SQLite {
 		return _retorno;
 	}
 	
-	
-	/*public int EjecutarArrayStringSQL(ArrayList<String> _informacion){
-		int _retorno = 0;
-		String RegistroInsert;
-		abrir();
-		for(int i=0;i< _informacion.size();i++){
-			RegistroInsert = _informacion.get(i);
-			RegistroInsert = RegistroInsert.replace("DELETE", "DELETE FROM");
-			try{
-				nBD.execSQL(RegistroInsert);  
-				_retorno++;
-			}catch(Exception e){	
-				Toast.makeText(this.nContexto,"Exception "+ e.toString() + "Script " + RegistroInsert, Toast.LENGTH_SHORT).show();
-			}	
-		}
-		cerrar();
-		return _retorno;
-	}*/
-	
+		
 	
 	/**Funcion para realizar INSERT
 	 * @param _tabla 		-> tabla a la cual se va a realizar el INSERT
@@ -374,30 +292,7 @@ public class SQLite {
 		return ValorRetorno;
 	}
 		
-	//Consulta de datos con retorno de lista de array asociativo
-	/*public ArrayList<ArrayList<String>> SelectDataKeyValue(String TablaConsulta, String CamposConsulta, String CondicionConsulta) {
-		abrir();
-		ArrayList<ArrayList<String>> Matriz = new ArrayList<ArrayList<String>>();
 		
-		try{
-			Cursor c = nBD.rawQuery("SELECT "+CamposConsulta+" FROM "+TablaConsulta+" WHERE "+CondicionConsulta, null);
-			String[] Columnas = c.getColumnNames();
-					
-			for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-				ArrayList<String> Registro = new ArrayList<String>();
-				for(int i=0;i<Columnas.length;i++){
-					Registro.add(c.getString(i));
-				}
-				Matriz.add(Registro);
-			}			
-		}
-		catch(Exception e){
-			Log.i("Error en SQLite", e.toString());
-		}
-		cerrar();
-		return Matriz;
-	}*/
-	
 	
 	/**Funcion encargada de realizar una consulta y retornarla con un array list de content values, similar a un array de diccionarios
 	 * @param _tabla		->tabla sobre la cual va a correr la consulta
@@ -492,51 +387,6 @@ public class SQLite {
 		return _query;		
 	}
 	
-	//Selecciona un registro
-	/*public void SelectData(ArrayList<String> TxtCampos, String TablaConsulta, String CamposConsulta, String CondicionConsulta, String Base) {
-		abrir();
-		try{
-			TxtCampos.clear();
-			if (!Base.equals("")){
-				TxtCampos.add(Base);
-			}
-			
-			Cursor c = nBD.rawQuery("SELECT DISTINCT "+CamposConsulta+" FROM "+TablaConsulta+" WHERE "+CondicionConsulta, null);
-			String[] Columnas = c.getColumnNames();
-					
-			for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-				for(int i=0;i<Columnas.length;i++){
-					TxtCampos.add(c.getString(i));
-				}				
-			}			
-		}
-		catch(Exception e){
-			Log.i("Error en SQLite", e.toString());
-		}	
-		cerrar();
-	}*/
-	
-	
-	/*public void SelectDistinctLimit(ArrayList<ArrayList<String>> Registros, String Tabla, String Campos, String Condicion, int Limite) {
-		Registros.clear();
-		abrir();
-		try{
-			Cursor c = nBD.rawQuery("SELECT "+Campos+" FROM "+Tabla+" WHERE "+Condicion+" LIMIT "+ Limite, null);
-			String[] Columnas = c.getColumnNames();
-			
-			for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-				ArrayList<String> Registro = new ArrayList<String>();
-				for(int i=0;i<Columnas.length;i++){
-					Registro.add(c.getString(i));
-				}
-				Registros.add(Registro);
-			}			
-		}
-		catch(Exception e){
-			Log.i("Error en SQLite SelectMultiple", e.toString());
-		}	
-		cerrar();
-	}*/
 	
 	/**Funcion que consulta un campo de una tabla segun la condicion recibida y retorna el resultado como un entero
 	 * @param _tabla		->Tabla sobre la cual se va a trabajar

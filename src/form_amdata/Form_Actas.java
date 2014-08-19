@@ -4,6 +4,7 @@ package form_amdata;
 import java.io.File;
 import java.util.ArrayList;
 import sypelc.androidamdata.R;
+import miscelanea.DateTime;
 import miscelanea.FormatosActas;
 import miscelanea.SQLite;
 import miscelanea.Util;
@@ -23,8 +24,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 public class Form_Actas extends Activity implements OnClickListener, OnItemSelectedListener{
+	DateTime			FcnDate;
 	FormatosActas 		ActaImpresa;
 	SQLite 				ActasSQL;
 	Util   				ActasUtil;
@@ -37,7 +40,8 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 	private String 		FolderAplicacion= "";
 	
 	//Variable utilizada para realizar las operaciones en la base de datos 
-	private ArrayList<ContentValues> 	_tempTabla	= new ArrayList<ContentValues>();
+	private ContentValues				_tempRegistro	= new ContentValues();
+	private ArrayList<ContentValues> 	_tempTabla		= new ArrayList<ContentValues>();
 	
 	private ArrayList<String> strCodigoAccion = new ArrayList<String>();
 	
@@ -78,6 +82,7 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 		this.CuentaCliente 		= bundle.getString("CuentaCliente");		
 		this.FolderAplicacion	= bundle.getString("FolderAplicacion");
 		
+		FcnDate 	= new DateTime();
 		ActasSQL 	= new SQLite(this, this.FolderAplicacion);
 		ActasUtil 	= new Util();
 		ActaImpresa	= new FormatosActas(this, this.FolderAplicacion,true);
@@ -90,6 +95,7 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 		_lblActa.setText(ActasSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "num_acta", "id_orden='"+OrdenTrabajo+"'"));
 		_lblCuenta.setText(CuentaCliente);	
 		
+		_txtLectura			= (EditText) findViewById(R.id.ActasTxtLectura2);
 		_txtNombreUsuario 	= (EditText) findViewById(R.id.ActaTxtNombreUsuario);
 		_txtDocUsuario	 	= (EditText) findViewById(R.id.ActaTxtDocUsuario);
 		_txtTelUsuario		= (EditText) findViewById(R.id.ActaTxtTelUsuario);
@@ -97,6 +103,7 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 		_txtFechaPago		= (EditText) findViewById(R.id.ActaTxtFechaPago);
 		_txtMontoPago		= (EditText) findViewById(R.id.ActaTxtMontoPago);
 		_txtEntidadPago		= (EditText) findViewById(R.id.ActaTxtEntidadPago);
+		_txtOtros			= (EditText) findViewById(R.id.ActaTxtOtros);
 		_txtObservacion		= (EditText) findViewById(R.id.ActaTxtObservacion);
 		_txtColorAcometida	= (EditText) findViewById(R.id.ActaTxtColorAcometida); 
 		
@@ -135,6 +142,8 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 		AdaptadorFacturaCancelada= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,this.strFacturaCancelada);
 		_cmbFacturaCancelada.setAdapter(AdaptadorFacturaCancelada);
 		
+		CargarInformacion();
+		
 		this._cmbFacturaCancelada.setOnItemSelectedListener(this);
 	}
 	
@@ -150,7 +159,57 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent k;
-		switch (item.getItemId()) {				
+		switch (item.getItemId()) {		
+			case R.id.Guardar:
+				_tempRegistro.clear();
+				_tempRegistro.put("dig_fecha_visita", FcnDate.GetFecha());
+				_tempRegistro.put("dig_hora_visita", FcnDate.GetHora());
+				_tempRegistro.put("dig_lectura_actual", _txtLectura.getText().toString());
+				_tempRegistro.put("dig_codigo_accion", _cmbCodigoAccion.getSelectedItem().toString());					
+				_tempRegistro.put("dig_num_canuelas", _cmbNumCanuelas.getSelectedItem().toString());
+				_tempRegistro.put("dig_tipo_acometida", _cmbTipoAcometida.getSelectedItem().toString());
+				_tempRegistro.put("dig_estado_acometida", _cmbEstadoAcometida.getSelectedItem().toString());
+				_tempRegistro.put("dig_longitud_acometida", _txtLongAcometida.getText().toString());
+				_tempRegistro.put("dig_calibre_acometida", _cmbCalibreAcometida.getSelectedItem().toString());
+				_tempRegistro.put("dig_color_acometida", _txtColorAcometida.getText().toString());
+				_tempRegistro.put("dig_otros", _txtOtros.getText().toString());		
+				_tempRegistro.put("dig_observacion", _txtObservacion.getText().toString());
+				_tempRegistro.put("dig_nombre_usuario", _txtNombreUsuario.getText().toString());
+				_tempRegistro.put("dig_ident_usuario", _txtDocUsuario.getText().toString());
+				_tempRegistro.put("dig_telefono", _txtTelUsuario.getText().toString());
+				
+				if(_cmbMaterialRetirado.getSelectedItem().toString().equals("Si")){
+					_tempRegistro.put("dig_material_retirado","true");
+				}else{
+					_tempRegistro.put("dig_material_retirado", "false");
+				}	
+				
+				if(_cmbPinCorte.getSelectedItem().toString().equals("Si")){
+					_tempRegistro.put("dig_pin_corte", "true");
+				}else{
+					_tempRegistro.put("dig_pin_corte", "false");
+				}
+				
+				if(_cmbFacturaCancelada.getSelectedItem().toString().equals("Si")){
+					_tempRegistro.put("dig_cancelada_factura", "true");
+					_tempRegistro.put("dig_fecha_pago_factura", _txtFechaPago.getText().toString());
+					_tempRegistro.put("dig_monto_factura", _txtMontoPago.getText().toString());
+					_tempRegistro.put("dig_entidad_factura", _txtEntidadPago.getText().toString());
+				}else{
+					_tempRegistro.put("dig_cancelada_factura", "false");
+					_tempRegistro.put("dig_fecha_pago_factura", "");
+					_tempRegistro.put("dig_monto_factura", "");
+					_tempRegistro.put("dig_entidad_factura", "");
+				}	
+					
+				
+				if(this.ActasSQL.UpdateRegistro("amd_ordenes_trabajo", _tempRegistro, "id_serial="+this.OrdenTrabajo+" AND cuenta="+this.CuentaCliente)){
+					Toast.makeText(this,"Informacion actualizada correctamente.", Toast.LENGTH_SHORT).show();
+				}else{
+					Toast.makeText(this,"Error al actualizar la informacion.", Toast.LENGTH_SHORT).show();
+				}				
+				return true;
+		
 			case R.id.Sellos:
 				finish();
 				k = new Intent(this, Form_Sellos.class);
@@ -164,15 +223,15 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 				return true;
 				
 			case R.id.ImpresionOriginal:
-				ActaImpresa.FormatoVerificacion(OrdenTrabajo,"Desviacion",1, CedulaUsuario);
+				ActaImpresa.FormatoVerificacion(this.OrdenTrabajo, this.CuentaCliente,1);
 				return true;
 				
 			case R.id.ImpresionCopia:
-				ActaImpresa.FormatoVerificacion(OrdenTrabajo,"Desviacion",2, CedulaUsuario);
+				ActaImpresa.FormatoVerificacion(this.OrdenTrabajo, this.CuentaCliente,2);
 				return true;
 				
 			case R.id.ImpresionArchivo:
-				ActaImpresa.FormatoVerificacion(OrdenTrabajo,"Desviacion",3, CedulaUsuario);
+				ActaImpresa.FormatoVerificacion(this.OrdenTrabajo, this.CuentaCliente,3);
 				return true;	
 				
 			default:
@@ -185,111 +244,7 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){
-        	/*case R.id.ActaBtnAddItem:
-        		if(ActasUtil.FindStringIntoArrayString(_cmbItems.getSelectedItem().toString(), _lblItemAplicados.getText().toString(), " ")==-1){
-        			_lblItemAplicados.setText(_lblItemAplicados.getText()+" "+_cmbItems.getSelectedItem().toString());
-        		}else{
-        			Toast.makeText(this,"El item de pago ya se encuentra registrado.", Toast.LENGTH_SHORT).show();
-        		}        		
-        		break;
-        	
-        	case R.id.ActaBtnRemoveItem:
-        		if(ActasUtil.FindStringIntoArrayString(_cmbItems.getSelectedItem().toString(), _lblItemAplicados.getText().toString(), " ")>=0){
-        			_lblItemAplicados.setText(ActasUtil.RemoveStringIntoArrayString(_cmbItems.getSelectedItem().toString(), _lblItemAplicados.getText().toString(), " "));
-        		}else{
-        			Toast.makeText(this,"El item de pago no se encuentra registrado.", Toast.LENGTH_SHORT).show();
-        		}        		
-        		break;
-        		
-        	case R.id.ActaBtnGuardar:
-        		if(_lblItemAplicados.getText().length()==0){
-        			Toast.makeText(this,"No ha seleccionado los items de pago a aplicar.", Toast.LENGTH_SHORT).show();
-        		}else if(_cmbUbicacionMedidor.getSelectedItem().toString().equals("...")){
-        			Toast.makeText(this,"No ha seleccionado la ubicacion del medidor.", Toast.LENGTH_SHORT).show();        			
-        		}else if(_cmbUsoDerecho.getSelectedItem().toString().equals("...")){
-        			Toast.makeText(this,"No ha seleccionado si el usuario hace uso del derecho.", Toast.LENGTH_SHORT).show();        			
-        		}else{
-        			
-        			
-        			Registro.clear();		
-           			if(ActasSQL.ExistRegistros("amd_impresiones_inf", "id_orden='"+OrdenTrabajo+"'")){
-        				Registro.put("diagrama", _cmbTipoMedidores.getSelectedItem().toString());
-            			Registro.put("acometida", _cmbAcometidaMedidor.getSelectedItem().toString());
-            			Registro.put("ubicacion", _cmbUbicacionMedidor.getSelectedItem().toString());
-            			Registro.put("uso_derecho", _cmbUsoDerecho.getSelectedItem().toString());
-            			Registro.put("items", _lblItemAplicados.getText().toString());
-            			
-        				if(ActasSQL.UpdateRegistro("amd_impresiones_inf", Registro, "id_orden='"+OrdenTrabajo+"'")){
-        					Toast.makeText(this,"Registro actualizado correctamente en amd_impresiones_inf.", Toast.LENGTH_SHORT).show();
-        				}else{
-        					Toast.makeText(this,"Error al actualizar el registro en amd_impresiones_inf.", Toast.LENGTH_SHORT).show();
-        				}
-        			}else{
-        				Registro.put("id_orden", OrdenTrabajo);
-        				Registro.put("diagrama", _cmbTipoMedidores.getSelectedItem().toString());
-            			Registro.put("acometida", _cmbAcometidaMedidor.getSelectedItem().toString());
-            			Registro.put("ubicacion", _cmbUbicacionMedidor.getSelectedItem().toString());
-            			Registro.put("uso_derecho", _cmbUsoDerecho.getSelectedItem().toString());
-            			Registro.put("items", _lblItemAplicados.getText().toString());
-            			
-            			if(ActasSQL.InsertRegistro("amd_impresiones_inf", Registro)){
-        					Toast.makeText(this,"Registro ingresado correctamente en amd_impresiones_inf.", Toast.LENGTH_SHORT).show();
-        				}else{
-        					Toast.makeText(this,"Error al ingresar el registro en amd_impresiones_inf.", Toast.LENGTH_SHORT).show();
-        				}    			
-            		} 
-           			
-           			
-        			Registro.clear();    		
-        			if(ActasSQL.ExistRegistros("amd_actas", "id_orden='"+OrdenTrabajo+"'")){
-        				Registro.put("cedula_enterado",_txtDocEnterado.getText().toString());
-        				Registro.put("nombre_enterado",_txtNombreEnterado.getText().toString());
-        				Registro.put("tipo_enterado",_cmbTipoEnterado.getSelectedItem().toString());
-        				Registro.put("cedula_testigo",_txtDocTestigo.getText().toString());
-        				Registro.put("nombre_testigo",_txtNombreTestigo.getText().toString());
-        				
-        				if(ActasSQL.UpdateRegistro("amd_actas", Registro, "id_orden='"+OrdenTrabajo+"'")){
-        					Toast.makeText(this,"Registro actualizado correctamente en amd_actas.", Toast.LENGTH_SHORT).show();
-        				}else{
-        					Toast.makeText(this,"Error al ingresar el registro en amd_actas.", Toast.LENGTH_SHORT).show();
-        				}
-        			}else{
-        				Registro.put("id_orden",OrdenTrabajo);
-        				Registro.put("id_acta",ActasSQL.IntSelectShieldWhere("amd_actas", "max(cast(id_acta AS INTEGER)) as id_acta", "id_acta IS NOT NULL")+1);
-        				Registro.put("id_revision","0");
-        				Registro.put("codigo_trabajo",ActasSQL.StrSelectShieldWhere("amd_param_trabajos_orden", "id_trabajo", "id_orden='"+OrdenTrabajo+"'"));
-        				Registro.put("cedula_enterado",_txtDocEnterado.getText().toString());
-        				Registro.put("nombre_enterado",_txtNombreEnterado.getText().toString());
-        				Registro.put("evento","");
-        				Registro.put("tipo_enterado",_cmbTipoEnterado.getSelectedItem().toString());
-        				Registro.put("cedula_testigo",_txtDocTestigo.getText().toString());
-        				Registro.put("nombre_testigo",_txtNombreTestigo.getText().toString());
-        				Registro.put("estado","E");
-        				Registro.put("usuario_ins",CedulaUsuario);
-        				
-        				if(ActasSQL.InsertRegistro("amd_actas", Registro)){
-        					Toast.makeText(this,"Registro ingresado correctamente en amd_actas.", Toast.LENGTH_SHORT).show();
-        				}else{
-        					Toast.makeText(this,"Error al ingresar el registro en amd_actas.", Toast.LENGTH_SHORT).show();
-        				}        				
-        			}
-        			
-        			
-        			if(_cmbRtaPQR.getSelectedItem() != null){
-            			Registro.clear();
-            			Registro.put("id_inconsistencia", ActasSQL.IntSelectShieldWhere("amd_inconsistencias","max(cast(id_inconsistencia AS INTEGER)) as id_inconsistencia","id_inconsistencia IS NOT NULL")+1);
-            			Registro.put("id_orden", OrdenTrabajo);
-            			Registro.put("id_nodo", ActasSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "id_nodo", "id_orden='"+OrdenTrabajo+"'"));
-        				Registro.put("valor", ActasSQL.StrSelectShieldWhere("vista_respuesta_pqr", "recomendacion", "id_orden='"+OrdenTrabajo+"' AND descripcion_tipo_recomendacion LIKE '%"+_cmbRtaPQR.getSelectedItem().toString()+"'"));	
-        				Registro.put("cod_inconsistencia", "PQR1");
-        				Registro.put("cuenta",CuentaCliente);
-        				Registro.put("usuario_ins", CedulaUsuario);
-        				Registro.put("tipo","A");        			
-        				ActasSQL.InsertOrUpdateRegistro("amd_inconsistencias", Registro, "id_orden='"+OrdenTrabajo+"' AND cod_inconsistencia='PQR1'");		
-        			}
-        		}
-        	default:
-        		break;*/
+      
 		}		
 	}
 
@@ -316,8 +271,61 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
+	}
+	
+	
+	public void CargarInformacion(){
+		this._tempRegistro = ActasSQL.SelectDataRegistro(	"amd_ordenes_trabajo", 
+															"dig_lectura_actual,dig_codigo_accion,dig_num_canuelas," +
+															"dig_tipo_acometida,dig_estado_acometida,dig_longitud_acometida,dig_calibre_acometida," +
+															"dig_color_acometida,dig_otros,dig_observacion,dig_nombre_usuario,dig_ident_usuario," +
+															"dig_telefono,dig_material_retirado,dig_pin_corte,dig_cancelada_factura," +
+															"dig_fecha_pago_factura,dig_monto_factura,dig_entidad_factura", 
+															"id_serial="+this.OrdenTrabajo+" AND cuenta="+this.CuentaCliente);
 		
-		
+		if(this._tempRegistro.getAsString("dig_lectura_actual") != null){
+			_txtLectura.setText(this._tempRegistro.getAsString("dig_lectura_actual").toString());				
+			_cmbCodigoAccion.setSelection(AdaptadorCodigoAccion.getPosition(this._tempRegistro.getAsString("dig_codigo_accion")));
+			_cmbNumCanuelas.setSelection(AdaptadorNumeroCanuelas.getPosition(this._tempRegistro.getAsString("dig_num_canuelas")));
+			_cmbTipoAcometida.setSelection(AdaptadorTipoAcometida.getPosition(this._tempRegistro.getAsString("dig_tipo_acometida")));
+			_cmbEstadoAcometida.setSelection(AdaptadorEstadoAcometida.getPosition(this._tempRegistro.getAsString("dig_estado_acometida")));
+			_txtLongAcometida.setText(this._tempRegistro.getAsString("dig_longitud_acometida").toString());
+			_cmbCalibreAcometida.setSelection(AdaptadorCalibreAcometida.getPosition(this._tempRegistro.getAsString("dig_calibre_acometida")));
+			_txtColorAcometida.setText(this._tempRegistro.getAsString("dig_color_acometida").toString());
+			_txtOtros.setText(this._tempRegistro.getAsString("dig_otros").toString());
+			_txtObservacion.setText(this._tempRegistro.getAsString("dig_observacion".toString()));
+			_txtNombreUsuario.setText(this._tempRegistro.getAsString("dig_nombre_usuario").toString());
+			_txtDocUsuario.setText(this._tempRegistro.getAsString("dig_ident_usuario").toString());
+			_txtTelUsuario.setText(this._tempRegistro.getAsString("dig_telefono").toString());
+			
+			if(this._tempRegistro.getAsBoolean("dig_material_retirado")==true){
+				_cmbMaterialRetirado.setSelection(AdaptadorMaterialRetirado.getPosition("Si"));
+			}else if(this._tempRegistro.getAsBoolean("dig_material_retirado")==false){
+				_cmbMaterialRetirado.setSelection(AdaptadorMaterialRetirado.getPosition("No"));
+			}else{
+				_cmbMaterialRetirado.setSelection(AdaptadorMaterialRetirado.getPosition("..."));
+			}
+			
+			if(this._tempRegistro.getAsBoolean("dig_pin_corte")==true){
+				_cmbPinCorte.setSelection(AdaptadorPinCorte.getPosition("Si"));
+			}else if(this._tempRegistro.getAsBoolean("dig_pin_corte")==false){
+				_cmbPinCorte.setSelection(AdaptadorPinCorte.getPosition("No"));
+			}else{
+				_cmbPinCorte.setSelection(AdaptadorMaterialRetirado.getPosition("..."));
+			}
+			
+			if(this._tempRegistro.getAsBoolean("dig_cancelada_factura")==true){
+				_cmbFacturaCancelada.setSelection(AdaptadorFacturaCancelada.getPosition("Si"));
+			}else if(this._tempRegistro.getAsBoolean("dig_cancelada_factura")==false){
+				_cmbFacturaCancelada.setSelection(AdaptadorFacturaCancelada.getPosition("No"));
+			}else{
+				_cmbFacturaCancelada.setSelection(AdaptadorFacturaCancelada.getPosition("..."));
+			}
+			
+			_txtFechaPago.setText(this._tempRegistro.getAsString("dig_fecha_pago_factura").toString());
+			_txtMontoPago.setText(this._tempRegistro.getAsString("dig_monto_factura").toString());
+			_txtEntidadPago.setText(this._tempRegistro.getAsString("dig_entidad_factura").toString());				
+		}
 	}
 }

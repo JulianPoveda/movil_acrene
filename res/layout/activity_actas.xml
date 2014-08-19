@@ -117,7 +117,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/ActaTxtOtros"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/ActaLblOtros"
@@ -290,7 +290,7 @@
             android:id="@+id/ActaLblObservacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editText3"
+            android:layout_alignBottom="@+id/ActaTxtOtros"
             android:layout_alignLeft="@+id/ActaLblEntidad"
             android:layout_below="@+id/ActaLblEntidad"
             android:gravity="right|center_vertical"
@@ -462,25 +462,15 @@
             android:layout_toRightOf="@+id/ActasLblNoCanuelas" />
 
         <EditText
-            android:id="@+id/editText1"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActasLblLectura"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/ActasLblLectura"
-            android:ems="10"
-            android:inputType="numberDecimal" />
-
-        <TextView
-            android:id="@+id/ActasLblLectura"
+            android:id="@+id/ActasTxtLectura2"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ActaCmbNoCanuelas"
-            android:layout_alignTop="@+id/ActaCmbNoCanuelas"
-            android:layout_toLeftOf="@+id/editText1"
-            android:gravity="right|center_vertical"
-            android:text="@string/ActasLblLectura"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_above="@+id/ActaCmbNoCanuelas"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/ActasLblLectura"
+            android:layout_toRightOf="@+id/ActasLblLectura"
+            android:ems="10"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:id="@+id/ActasLblNoCanuelas"
@@ -492,6 +482,18 @@
             android:layout_toRightOf="@+id/ActaCmbMaterialRetirado"
             android:gravity="right|center_vertical"
             android:text="@string/ActasLblNoCanuelas"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/ActasLblLectura"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ActaCmbNoCanuelas"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/ActasTxtLectura"
+            android:layout_toRightOf="@+id/ActaCmbCodigoAccion"
+            android:gravity="right|center_vertical"
+            android:text="@string/ActasLblLectura"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
