@@ -1,6 +1,6 @@
 package form_amdata;
 
-import java.io.File;
+
 import java.util.ArrayList;
 
 import class_amdata.Class_Solicitudes;
@@ -16,7 +16,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,6 +67,11 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 	private Spinner ListaNodos;
 	
 	
+	//Variables para control del combo de nodos y adaptadores
+	private ArrayAdapter<String> AdaptadorActividades;
+	private ArrayList<String> Actividades = new ArrayList<String>();
+	private Spinner ListaActividades;
+	
 	//Variables para control del combo de solicitudes por nodo y adaptadores
 	AdaptadorListaTrabajo AdaptadorSolicitudes;
 	ArrayList<InformacionSolicitudes> ArraySolicitudes = new ArrayList<InformacionSolicitudes>();
@@ -98,23 +102,30 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 		SolicitudesUtil = new Util();
 		
 		//Adapter para los nodos	
-		this.Nodos = FcnSolicitudes.getNodosSolicitudes();
+		this.Nodos = FcnSolicitudes.getMunicipiosSolicitudes();
 		this.AdaptadorNodos = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,this.Nodos);
-		this.ListaNodos = (Spinner) findViewById(R.id.CmbNodoSolicitud);
+		this.ListaNodos = (Spinner) findViewById(R.id.CmbMunicipioSolicitud);
 		this.ListaNodos.setAdapter(this.AdaptadorNodos);
+		
+		
+		this.Actividades = FcnSolicitudes.getActividadesSolicitudes();
+		this.AdaptadorActividades = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,this.Actividades);
+		this.ListaActividades = (Spinner) findViewById(R.id.CmbActividadesSolicitudes);
+		this.ListaActividades.setAdapter(this.AdaptadorActividades);
 		
 		//AdaptadorListaTrabajo adapter = new AdaptadorListaTrabajo(this,ArraySolicitudes);
 		AdaptadorSolicitudes = new AdaptadorListaTrabajo(this,ArraySolicitudes);
 		ListaSolicitudes = (ListView) findViewById(R.id.LstSolicitudes);
 		ListaSolicitudes.setAdapter(AdaptadorSolicitudes);
 		
-		_txtMunicipio 		= (TextView) findViewById(R.id.SolicitudesTxtMunicipio);
+		_txtMunicipio 	= (TextView) findViewById(R.id.SolicitudesTxtMunicipio);
 		_txtSerie		= (TextView) findViewById(R.id.TxtSerie);
 		_txtDireccion	= (TextView) findViewById(R.id.TxtDireccion);
 		_txtCuenta		= (TextView) findViewById(R.id.SolicitudesTxtCuenta); 
 		_txtIdSerial	= (TextView) findViewById(R.id.SolicitudesTxtIdSerial);
 		_txtProceso		= (TextView) findViewById(R.id.SolicitudesTxtIdProceso); 
 		_txtTipo		= (TextView) findViewById(R.id.SolicitudesTxtTipo);
+		_txtPropietario = (TextView) findViewById(R.id.SolicitudesTxtNombre);
 		
 		_txtMunicipio.setEnabled(false);
 		_txtSerie.setEnabled(false);
@@ -123,7 +134,9 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 		_txtIdSerial.setEnabled(false);
 		_txtProceso.setEnabled(false);
 		_txtTipo.setEnabled(false);
+		_txtPropietario.setEnabled(false);
 		
+		ListaActividades.setOnItemSelectedListener(this);
 		ListaNodos.setOnItemSelectedListener(this);
 		ListaSolicitudes.setOnItemClickListener(this);
 	}
@@ -203,14 +216,26 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 	
 	public void CargarOrdenesTrabajo(){
 		ArraySolicitudes.clear();
-		if(ListaNodos.getSelectedItem().toString().equals("Todos")){
-			TablaQuery = SolicitudesSQL.SelectData("amd_ordenes_trabajo", "direccion,cuenta,serie,estado", "estado in ('P','E','T','TA') ORDER BY cuenta");
+		if(ListaNodos.getSelectedItem().toString().equals("Todos") && ListaActividades.getSelectedItem().toString().equals("Todos")){
+			TablaQuery = SolicitudesSQL.SelectData("amd_ordenes_trabajo", "direccion,cuenta,serie,estado", "estado in ('P','E','T','TA') ORDER BY id_serial");
+			for(int i=0;i<TablaQuery.size();i++){
+				RegistroQuery = TablaQuery.get(i);
+				ArraySolicitudes.add(new InformacionSolicitudes(RegistroQuery.getAsString("cuenta"),RegistroQuery.getAsString("serie"),RegistroQuery.getAsString("direccion"),RegistroQuery.getAsString("estado")));
+			}
+		}else if(ListaNodos.getSelectedItem().toString().equals("Todos") && !ListaActividades.getSelectedItem().toString().equals("Todos")){
+			TablaQuery = SolicitudesSQL.SelectData("amd_ordenes_trabajo", "direccion,cuenta,serie,estado", "id_tipo_archivo='"+ListaActividades.getSelectedItem().toString().substring(0,1)+"' AND estado in ('P','E','T','TA') ORDER BY id_serial");
+			for(int i=0;i<TablaQuery.size();i++){
+				RegistroQuery = TablaQuery.get(i);
+				ArraySolicitudes.add(new InformacionSolicitudes(RegistroQuery.getAsString("cuenta"),RegistroQuery.getAsString("serie"),RegistroQuery.getAsString("direccion"),RegistroQuery.getAsString("estado")));
+			}
+		}else if(!ListaNodos.getSelectedItem().toString().equals("Todos") && ListaActividades.getSelectedItem().toString().equals("Todos")){
+			TablaQuery = SolicitudesSQL.SelectData("amd_ordenes_trabajo", "direccion,cuenta,serie,estado", "municipio ='"+ListaNodos.getSelectedItem().toString()+"' AND estado in ('P','E','T','TA') ORDER BY id_serial");
 			for(int i=0;i<TablaQuery.size();i++){
 				RegistroQuery = TablaQuery.get(i);
 				ArraySolicitudes.add(new InformacionSolicitudes(RegistroQuery.getAsString("cuenta"),RegistroQuery.getAsString("serie"),RegistroQuery.getAsString("direccion"),RegistroQuery.getAsString("estado")));
 			}
 		}else{
-			TablaQuery = SolicitudesSQL.SelectData("amd_ordenes_trabajo", "direccion,cuenta,serie,estado", "municipio ='"+ListaNodos.getSelectedItem().toString()+"' AND estado in ('P','E','T','TA') ORDER BY cuenta");
+			TablaQuery = SolicitudesSQL.SelectData("amd_ordenes_trabajo", "direccion,cuenta,serie,estado", "municipio ='"+ListaNodos.getSelectedItem().toString()+"' AND id_tipo_archivo='"+ListaActividades.getSelectedItem().toString().substring(0,1)+"' AND estado in ('P','E','T','TA') ORDER BY id_serial");
 			for(int i=0;i<TablaQuery.size();i++){
 				RegistroQuery = TablaQuery.get(i);
 				ArraySolicitudes.add(new InformacionSolicitudes(RegistroQuery.getAsString("cuenta"),RegistroQuery.getAsString("serie"),RegistroQuery.getAsString("direccion"),RegistroQuery.getAsString("estado")));
@@ -225,6 +250,7 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 		if(resultCode == RESULT_OK && requestCode == CONFIRMACION_INICIO_ORDEN) {
 			if(data.getExtras().getBoolean("accion")){
 				/**procedimiento para generar el numero del acta y guardarlo en la base de datos**/
+				_tempRegistro.put("acta", SolicitudesSQL.MinutesBetweenDateAndNow("2014-07-01 00:00:00"));
 				_tempRegistro.put("estado", "E");
 				SolicitudesSQL.UpdateRegistro("amd_ordenes_trabajo", _tempRegistro, "id_serial='"+_txtIdSerial.getText().toString()+"' AND id_tipo_archivo='"+_txtTipo.getText().toString().substring(0,1)+"'");
 				/**Fin de la generacion del numero de acta y actualizacion en la base de datos**/
@@ -244,7 +270,7 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 			if(data.getExtras().getBoolean("accion")){
 				_tempRegistro.clear();
 				_tempRegistro.put("estado","T");
-				SolicitudesSQL.UpdateRegistro("amd_ordenes_trabajo", _tempRegistro, "id_orden='"+_txtIdSerial.getText().toString()+"'");	
+				SolicitudesSQL.UpdateRegistro("amd_ordenes_trabajo", _tempRegistro, "id_serial='"+_txtIdSerial.getText().toString()+"'");	
 				CargarOrdenesTrabajo();
 			}			
 		}else if(resultCode == RESULT_OK && requestCode == CONFIRMACION_COD_APERTURA){
@@ -266,7 +292,11 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 		switch(parent.getId()){
-			case R.id.CmbNodoSolicitud:
+			case R.id.CmbMunicipioSolicitud:
+				CargarOrdenesTrabajo();
+				break;
+				
+			case R.id.CmbActividadesSolicitudes:
 				CargarOrdenesTrabajo();
 				break;
 		}
@@ -285,7 +315,7 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 		switch(parent.getId()){
 			case R.id.LstSolicitudes:
 				RegistroQuery 	= SolicitudesSQL.SelectDataRegistro("amd_ordenes_trabajo", 
-																	"id_serial,id_tipo_archivo,id_proceso,ciclo,cuenta,direccion,serie,municipio", 
+																	"id_serial,id_tipo_archivo,id_proceso,ciclo,cuenta,direccion,serie,municipio,usuario", 
 																	"cuenta='"+ArraySolicitudes.get(position).getSolicitud()+"'");
 				
 				_txtMunicipio.setText(RegistroQuery.get("municipio").toString());
@@ -293,6 +323,7 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 				_txtDireccion.setText(RegistroQuery.get("direccion").toString());
 				_txtCuenta.setText(RegistroQuery.get("cuenta").toString());
 				_txtIdSerial.setText(RegistroQuery.get("id_serial").toString());
+				_txtPropietario.setText(RegistroQuery.getAsString("usuario").toString());
 					
 				if(RegistroQuery.get("id_proceso").toString().equals("E")){
 					_txtProceso.setText("ENERGIA");
@@ -301,11 +332,13 @@ public class Form_Solicitudes extends Activity implements OnItemSelectedListener
 				}
 					
 				if(RegistroQuery.get("id_tipo_archivo").toString().equals("S")){
-					_txtTipo.setText("Suspension");
+					_txtTipo.setText("S-Suspension");
 				}else if(RegistroQuery.get("id_tipo_archivo").toString().equals("C")){
-					_txtTipo.setText("Corte");
+					_txtTipo.setText("C-Corte");
 				}else if(RegistroQuery.get("id_tipo_archivo").toString().equals("R")){
-					_txtTipo.setText("Reconexion");
+					_txtTipo.setText("R-Reconexion");
+				}else if(RegistroQuery.get("id_tipo_archivo").toString().equals("N")){
+					_txtTipo.setText("N-Seguimiento");
 				}
 					
 				this.enabledMenu = true;

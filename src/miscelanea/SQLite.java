@@ -53,18 +53,19 @@ public class SQLite {
 												+ "	nombre		VARCHAR(100))");
 			
 			db.execSQL("INSERT INTO amd_usuarios('login','password','perfil','documento','nombre') VALUES ('adm','s1st3m4','A','0','Administrador del Sistema')");
-			db.execSQL("INSERT INTO amd_usuarios('login','password','perfil','documento','nombre') VALUES ('OBaez','80201001','U','80201001','Tecnico')");
+			
 			
 			//Tabla con los parametros del sistema
 			db.execSQL("CREATE TABLE db_parametros (item TEXT PRIMARY KEY, valor TEXT NOT NULL, nivel INTEGER NOT NULL)");				
 			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('servidor','http://190.93.133.87',0) ");
 			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('puerto','8080',0) ");
 			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('modulo','Enerca/WS',0) ");
-			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('web_service','AndroidWS.php?wsdl',0)");
-			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('nombre_tecnico','Oscar Baez',1)");
+			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('web_service','JavaWS.php?wsdl',0)");
+			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('nombre_tecnico','Sin asignar',1)");
+			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('cedula_tecnico','Sin asignar',1)");
 			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('impresora','sin asignar',1)");
 			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('version','1.0',0)");
-			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('NPDA','80201001',0)");		
+			db.execSQL("INSERT INTO db_parametros (item,valor,nivel) VALUES ('NPDA','-1',0)");		
 			
 			
 			db.execSQL(	"CREATE TABLE amd_conexion_acometida(id_serial INTEGER PRIMARY KEY AUTOINCREMENT, descripcion VARCHAR(100) UNIQUE NOT NULL)");			
@@ -133,6 +134,7 @@ public class SQLite {
 															"dig_ident_usuario 		VARCHAR(50)," +
 															"dig_telefono 			VARCHAR(30)," +
 															"estado 				VARCHAR(1) NOT NULL DEFAULT 'P'," +
+															"acta 					DOUBLE PRECISION," +	
 															"PRIMARY KEY(id_serial,id_tipo_archivo))");
 			
 			

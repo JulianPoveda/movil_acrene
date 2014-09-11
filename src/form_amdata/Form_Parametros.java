@@ -1,6 +1,5 @@
 package form_amdata;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import sistema.Bluetooth;
@@ -10,7 +9,6 @@ import miscelanea.SQLite;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -34,7 +32,7 @@ public class Form_Parametros extends Activity implements OnClickListener{
 	private ContentValues 	Informacion = new ContentValues();
 	
 	Spinner _impresora;
-	EditText _pda, _ip_servidor, _puerto, _servicio,_nombreTecnico, _web_service, _revision,_codigo_apertura;
+	EditText _pda, _ip_servidor, _puerto, _servicio, _web_service, _revision,_codigo_apertura;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +50,6 @@ public class Form_Parametros extends Activity implements OnClickListener{
 		_ip_servidor 	= (EditText) findViewById(R.id.TxtParametrosIpServidor);
 		_puerto 		= (EditText) findViewById(R.id.TxtParametrosPuerto);
 		_servicio 		= (EditText) findViewById(R.id.TxtParametrosServicio);
-		_nombreTecnico 	= (EditText) findViewById(R.id.TxtParametrosNombreTecnico);
 		_web_service	= (EditText) findViewById(R.id.TxtParametrosWS);		
 		_impresora 		= (Spinner) findViewById(R.id.CmbParametrosImpresoras);
 		
@@ -60,10 +57,8 @@ public class Form_Parametros extends Activity implements OnClickListener{
 		AdapLstImpresoras 	= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,_listaImpresoras);
 		_impresora.setAdapter(AdapLstImpresoras);
 		
-		_pda.setText(SQL.StrSelectShieldWhere("amd_param_sistema", "valor", "codigo='NPDA'"));
-		_nombreTecnico.setText(SQL.StrSelectShieldWhere("amd_param_sistema","valor", "codigo='NOM_TECNICO'"));
-		
-		
+		_pda.setText(SQL.StrSelectShieldWhere("db_parametros", "valor", "item='NPDA'"));
+				
 		_ip_servidor.setText(SQL.StrSelectShieldWhere("db_parametros", "valor", "item='servidor'"));
 		_puerto.setText(SQL.StrSelectShieldWhere("db_parametros", "valor", "item='puerto'"));
 		_servicio.setText(SQL.StrSelectShieldWhere("db_parametros", "valor", "item='modulo'"));
@@ -85,21 +80,6 @@ public class Form_Parametros extends Activity implements OnClickListener{
 		
 		BtnGuardar.setOnClickListener(this);
 	}
-	
-	
-	
-
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		BtnGuardar.setOnClickListener(new OnClickListener(){
-            public void onClick(View v) {
-            	        }
-        });
-		return true;
-	}*/
-
-
 
 
 	@Override
@@ -109,11 +89,7 @@ public class Form_Parametros extends Activity implements OnClickListener{
 				this.Informacion.clear();
             	Informacion.put("valor", _pda.getText().toString());
             	SQL.UpdateRegistro("db_parametros", Informacion, "item='NPDA'");
-            	
-            	Informacion.clear();
-            	Informacion.put("valor", _nombreTecnico.getText().toString());
-            	SQL.UpdateRegistro("db_parametros", Informacion, "item='nombre_tecnico'");
-            	
+            	           	
             	Informacion.clear();
             	Informacion.put("valor", _impresora.getSelectedItem().toString());
             	SQL.UpdateRegistro("db_parametros", Informacion, "item='impresora'");      	
@@ -136,7 +112,5 @@ public class Form_Parametros extends Activity implements OnClickListener{
             	Toast.makeText(getApplicationContext(),"Parametros Actualizados.", Toast.LENGTH_SHORT).show();    
 				break;
 		}
-		// TODO Auto-generated method stub
-		
 	}
 }

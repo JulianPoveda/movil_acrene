@@ -92,7 +92,7 @@ public class Form_Actas extends Activity implements OnClickListener, OnItemSelec
 		_lblActa 			= (TextView) findViewById(R.id.ActaLblNumActa);
 		
 		_lblOrden.setText(OrdenTrabajo);
-		_lblActa.setText(ActasSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "num_acta", "id_orden='"+OrdenTrabajo+"'"));
+		_lblActa.setText(ActasSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "acta", "id_serial='"+OrdenTrabajo+"'"));
 		_lblCuenta.setText(CuentaCliente);	
 		
 		_txtLectura			= (EditText) findViewById(R.id.ActasTxtLectura2);

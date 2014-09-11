@@ -24,7 +24,7 @@ public class Class_Solicitudes {
 	
 	/*************************Funcion que retorna el estado que tiene la orden que se recibe por parametro*************************/
 	public String getEstadoOrden(String _orden){
-		return this.SolicitudesSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "estado", "id_orden='"+_orden+"'");
+		return this.SolicitudesSQL.StrSelectShieldWhere("amd_ordenes_trabajo", "estado", "id_serial='"+_orden+"'");
 	}
 	
 	/***************Funcion para validar si se permite el ingreso de informacion a la orden recibida por parametro****************/
@@ -74,7 +74,7 @@ public class Class_Solicitudes {
 	}
 	
 	
-	public ArrayList<String> getNodosSolicitudes(){
+	public ArrayList<String> getMunicipiosSolicitudes(){
 		ArrayList<String> _listaNodos = new ArrayList<String>();
 		_listaNodos.add("Todos");
 		this._tempTabla = this.SolicitudesSQL.SelectData("amd_ordenes_trabajo","municipio","estado in ('P','E','T','TA')");
@@ -85,4 +85,21 @@ public class Class_Solicitudes {
 	}
 	
 	
+	public ArrayList<String> getActividadesSolicitudes(){
+		ArrayList<String> _listaActividades = new ArrayList<String>();
+		_listaActividades.add("Todos");
+		this._tempTabla = this.SolicitudesSQL.SelectData("amd_ordenes_trabajo","id_tipo_archivo","estado in ('P','E','T','TA')");
+		for(int i=0;i<this._tempTabla.size();i++){
+			if(this._tempTabla.get(i).getAsString("id_tipo_archivo").equals("N")){
+				_listaActividades.add("N-Seguimiento");
+			}else if(this._tempTabla.get(i).getAsString("id_tipo_archivo").equals("S")){
+				_listaActividades.add("S-Suspension");
+			}else if(this._tempTabla.get(i).getAsString("id_tipo_archivo").equals("R")){
+				_listaActividades.add("R-Reconexion");
+			}else if(this._tempTabla.get(i).getAsString("id_tipo_archivo").equals("C")){
+				_listaActividades.add("C-Corte");
+			}			
+		}	
+		return _listaActividades;
+	}	
 }

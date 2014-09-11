@@ -12,7 +12,7 @@
         <ListView
             android:id="@+id/LstSolicitudes"
             android:layout_width="match_parent"
-            android:layout_height="415dp"
+            android:layout_height="200dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/LblSolicitudes"
@@ -22,22 +22,41 @@
         </ListView>
 
         <TextView
-            android:id="@+id/LblNodos"
+            android:id="@+id/SolicitudesLblNodos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:gravity="center_horizontal"
-            android:text="@string/SolicitudesLblNodos"
+            android:text="@string/SolicitudesLblMunicipios"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
-            android:id="@+id/CmbNodoSolicitud"
+            android:id="@+id/CmbMunicipioSolicitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/LblNodos"
+            android:layout_below="@+id/SolicitudesLblNodos"
             android:background="@color/VerdeManzana" />
+
+        <TextView
+            android:id="@+id/SolicitudesLblActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/CmbMunicipioSolicitud"
+            android:gravity="bottom|center_horizontal"
+            android:text="@string/SolicitudesLblActividades"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Spinner
+            android:id="@+id/CmbActividadesSolicitudes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/SolicitudesLblActividad" />
 
         <TextView
             android:id="@+id/LblSolicitudes"
@@ -45,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/CmbNodoSolicitud"
+            android:layout_below="@+id/CmbActividadesSolicitudes"
             android:gravity="center_horizontal"
             android:text="@string/SolicitudesLblSolicitudes"
             android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -137,6 +156,7 @@
             android:id="@+id/SolicitudesLblDireccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/SolicitudesTxtCuenta"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/TxtDireccion"
             android:layout_toLeftOf="@+id/TxtDireccion"
@@ -213,6 +233,28 @@
             android:layout_marginTop="39dp"
             android:ems="10"
             android:inputType="number|text" />
+
+        <EditText
+            android:id="@+id/SolicitudesTxtNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/SolicitudesTxtIdProceso"
+            android:layout_alignRight="@+id/SolicitudesTxtTipo"
+            android:layout_below="@+id/SolicitudesTxtIdProceso"
+            android:layout_marginTop="31dp"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/SolicitudesLblNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/SolicitudesTxtNombre"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/SolicitudesTxtNombre"
+            android:layout_toLeftOf="@+id/SolicitudesTxtNombre"
+            android:gravity="right|center_vertical"
+            android:text="@string/LblUsuario"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
 

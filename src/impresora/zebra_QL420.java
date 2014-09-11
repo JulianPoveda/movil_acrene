@@ -56,7 +56,7 @@ public class zebra_QL420 {
 	}
 		
 	public void DrawImage(String NameFile, double PosX, double PosY){
-		this._infImpresora 	+= "PCX "+(this._margenIzquierda+PosX)+" "+(this._lineaActual+PosY)+" !<"+NameFile+"\r\n";
+		this._infImpresora 	+= "PCX "+(int)(this._margenIzquierda+PosX)+" "+(int)(this._lineaActual+PosY)+" !<"+NameFile+" \r\n";
         
         if(this._copiaArchivo){
 			this._infArchivo+= "5;"+(this._margenIzquierda+PosX)+";"+(this._lineaActual+PosY)+";"+NameFile+";\r\n";			
@@ -99,7 +99,7 @@ public class zebra_QL420 {
 	    Justificacion = (this._anchoEtiqueta - (WordsLine.length() * this._anchoFuente1)) / 2;
 	    this._infImpresora += "TEXT " + this._tipoFuente1+ " 0 " + Justificacion + " " + this._lineaActual + " " + WordsLine + "\r\n";
 	    if(this._copiaArchivo){
-			this._infImpresora += "1;"+Justificacion+";"+this._lineaActual+";"+WordsLine+";\r\n";			
+			this._infArchivo += "1;"+Justificacion+";"+this._lineaActual+";"+WordsLine+";\r\n";			
 		}
 	    this._lineaActual += this._altoFuente1 * SaltoLineaPos;
 	}
@@ -167,9 +167,9 @@ public class zebra_QL420 {
 	public void WrSubTitulo(String InfSubtitulo, int OffsetSub, double SaltoLineaPre, double SaltoLineaPos){
 		this._lineaActual += this._altoFuente1 * SaltoLineaPre;
 		SetValuesFont("SUBTITULO");
-		this._infImpresora += "TEXT " + this._tipoFuente1+ " 0 " + OffsetSub + " " + this._lineaActual+ " " + InfSubtitulo + ";\r\n";
+		this._infImpresora += "TEXT " + this._tipoFuente1+ " 0 " + OffsetSub + " " + this._lineaActual+ " " + InfSubtitulo + " \r\n";
 		if(this._copiaArchivo){
-			this._infArchivo += "2;"+OffsetSub+";"+this._lineaActual+";"+InfSubtitulo+";\r\n";			
+			this._infArchivo += "2;"+OffsetSub+";"+this._lineaActual+";"+InfSubtitulo+" \r\n";			
 		}
 		this._lineaActual += this._altoFuente1 * SaltoLineaPos;
 	}

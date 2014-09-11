@@ -101,17 +101,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/LblParametrosTecnico"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/LblParametrosImpresora"
-        android:layout_alignBottom="@+id/LblParametrosImpresora"
-        android:layout_alignLeft="@+id/LblParametrosPisos"
-        android:layout_toLeftOf="@+id/TxtParametrosNombreTecnico"
-        android:text="@string/LblParamTecnico"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/LblParametrosArea"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -120,16 +109,6 @@
         android:layout_toRightOf="@+id/TxtParametrosPDA"
         android:text="@string/LblParamServidor"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/TxtParametrosNombreTecnico"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/LblParametrosTecnico"
-        android:layout_alignBottom="@+id/LblParametrosTecnico"
-        android:layout_alignLeft="@+id/TxtParametrosServicio"
-        android:ems="10"
-        android:inputType="text" />
 
     <Spinner
         android:id="@+id/CmbParametrosImpresoras"

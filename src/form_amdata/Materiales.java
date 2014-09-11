@@ -415,15 +415,15 @@ public class Materiales extends Activity implements OnClickListener, OnItemSelec
 				return true;	
 				
 			case R.id.OriginalEmpresa:
-				ActaImpresa.FormatoMateriales(OrdenTrabajo,"Materiales", 1, CedulaUsuario);
+				//ActaImpresa.FormatoMateriales(OrdenTrabajo,"Materiales", 1);
 				return true;	
 				
 			case R.id.CopiaUsuario:
-				ActaImpresa.FormatoMateriales(OrdenTrabajo,"Materiales", 2, CedulaUsuario);
+				//ActaImpresa.FormatoMateriales(OrdenTrabajo,"Materiales", 2);
 				return true;				
 				
 			case R.id.CopiaArchivo:
-				ActaImpresa.FormatoMateriales(OrdenTrabajo,"Materiales", 3, CedulaUsuario);
+				//ActaImpresa.FormatoMateriales(OrdenTrabajo,"Materiales", 3);
 				return true;
 				
 				

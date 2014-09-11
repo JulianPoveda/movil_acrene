@@ -3,9 +3,9 @@
     <item android:id="@+id/OrdenesTrabajo" android:title="Ordenes de Trabajo" ></item>
     <item android:id="@+id/Servidor" android:title="Servidor">
         <menu>
-            <item android:id="@+id/Envio" android:title="Envio"/>
-            <item android:id="@+id/Recepcion" android:title="Recepcion"/>
-            <item android:id="@+id/RecepcionArchivo" android:title="Recepcion Archivo"/>
+            
+            <item android:id="@+id/CargaParametros" android:title="Cargar Parametros" /><item android:id="@+id/Envio" android:title="Envio" /><item android:id="@+id/Recepcion" android:title="Recepcion"/>
+            
         </menu>
     </item>
     <item android:id="@+id/Sistema" android:title="Sistema">

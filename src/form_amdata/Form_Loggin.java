@@ -111,16 +111,24 @@ public class Form_Loggin extends Activity implements OnClickListener{
 		switch (item.getItemId()) {				
 			case R.id.Recepcion:
 				if(Conexion.chkStatusNetWork()){
-					new DownLoadTrabajo(this, this.FolderAplicacion).execute(this.PDA+"");
+					new DownLoadTrabajo(this, this.FolderAplicacion).execute(SQL.StrSelectShieldWhere("db_parametros", "valor", "item='cedula_tecnico'"));
 				}else{
 					Toast.makeText(this,"No hay conexion a internet.", Toast.LENGTH_LONG).show();	
 				}
 				return true;
+				
+			case R.id.CargaParametros:
+				if(Conexion.chkStatusNetWork()){
+					new DownLoadParametros(this, this.FolderAplicacion).execute(this.PDA+"");
+				}else{
+					Toast.makeText(this,"No hay conexion a internet.", Toast.LENGTH_LONG).show();	
+				}
+				return true;	
 			
-			case R.id.RecepcionArchivo:
+			/*case R.id.RecepcionArchivo:
 				Intent file_explorer = new Intent(this,Modal_FileExplorer.class);
 		        startActivityForResult(file_explorer, ARCHIVO_LOCAL);
-				return true;
+				return true;*/
 				
 			case R.id.OrdenesTrabajo:
 				Intent k;
